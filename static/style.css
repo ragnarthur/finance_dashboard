@@ -16,11 +16,26 @@ h1 {
     align-items: center;
 }
 
+.controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.controls label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.controls select {
+    padding: 5px;
+    font-size: 16px;
+}
+
 .top-stocks {
     width: 80%;
     background-color: #fff;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-top: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -33,6 +48,7 @@ h1 {
 .top-stocks table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 .top-stocks th, .top-stocks td {
@@ -46,15 +62,26 @@ h1 {
     color: #333;
 }
 
-.charts {
+#chart-container {
     width: 80%;
+    margin-bottom: 20px;
 }
 
 .chart {
     width: 100%;
-    margin-bottom: 20px;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+.note p {
+    margin: 0;
 }

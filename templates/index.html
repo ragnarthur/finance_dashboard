@@ -3,36 +3,61 @@
 <head>
     <title>Finance Dashboard</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Finance Dashboard</h1>
     <div class="dashboard">
+        <div class="controls">
+            <label for="symbol-select">Selecione uma ação:</label>
+            <select id="symbol-select">
+                {% for symbol in symbols %}
+                <option value="{{ symbol }}">{{ company_names[symbol] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="chart-container">
+            <div class="chart">
+                {{ charts[0]|safe }}
+            </div>
+        </div>
         <div class="top-stocks">
             <h2>Top 5 Ações</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Simbolo</th>
+                        <th>Nome</th>
                         <th>Preço de Fechamento</th>
+                        <th>Volume</th>
+                        <th>Variação Percentual</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for stock in top_stocks %}
                     <tr>
-                        <td>{{ stock[0] }}</td>
-                        <td>${{ stock[1] }}</td>
+                        <td>{{ stock[1] }}</td>
+                        <td>${{ "{:,.2f}".format(stock[2]) }}</td>
+                        <td>{{ "{:,.0f}".format(stock[3]).replace(',', '.') }}</td>
+                        <td>{{ "{:,.2f}".format(stock[4]) }}%</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-        <div class="charts">
-            {% for chart in charts %}
-            <div class="chart">
-                {{ chart|safe }}
+            <div class="note">
+                <p><strong>Nota:</strong> O volume representa o número total de ações negociadas durante um determinado período. É uma medida da liquidez de uma ação e pode indicar a intensidade da atividade de negociação.</p>
+                <p><strong>Nota:</strong> As médias móveis de 20 e 50 períodos são indicadores técnicos que mostram o preço médio de uma ação ao longo de 20 ou 50 períodos de tempo, respectivamente. Eles são usados para identificar tendências e potenciais pontos de entrada ou saída.</p>
             </div>
-            {% endfor %}
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#symbol-select').change(function(){
+                var selectedSymbol = $(this).val();
+                $.post('/update_chart', {symbol: selectedSymbol}, function(data){
+                    $('#chart-container').html(data.graph_html);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
