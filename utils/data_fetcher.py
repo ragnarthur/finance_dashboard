@@ -24,7 +24,23 @@ def get_processed_stock_data(symbol):
     data = get_stock_data(symbol)
     return process_stock_data(data)
 
-def create_stock_chart(df):
-    fig = go.Figure(data=[go.Scatter(x=df.index, y=df['close'], mode='lines', name='Close')])
-    fig.update_layout(title='Preço de Fechamento', xaxis_title='Tempo', yaxis_title='Preço')
+def create_stock_chart(df, symbol):
+    fig = go.Figure(data=[go.Scatter(x=df.index, y=df['close'], mode='lines', name=symbol)])
+    fig.update_layout(title=f'Preço de Fechamento: {symbol}', xaxis_title='Tempo', yaxis_title='Preço')
     return fig
+
+def get_top_5_stocks():
+    # Lista de símbolos das ações para monitorar
+    symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+    top_stocks = []
+
+    for symbol in symbols:
+        data = get_stock_data(symbol)
+        df = process_stock_data(data)
+        last_close = df['close'].iloc[-1]
+        top_stocks.append((symbol, last_close))
+
+    # Ordenar as ações pelo preço de fechamento mais recente em ordem decrescente
+    top_stocks.sort(key=lambda x: x[1], reverse=True)
+
+    return top_stocks[:5]

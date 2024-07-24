@@ -6,6 +6,33 @@
 </head>
 <body>
     <h1>Finance Dashboard</h1>
-    {{ graph_html|safe }}
+    <div class="dashboard">
+        <div class="top-stocks">
+            <h2>Top 5 Ações</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Simbolo</th>
+                        <th>Preço de Fechamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in top_stocks %}
+                    <tr>
+                        <td>{{ stock[0] }}</td>
+                        <td>${{ stock[1] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="charts">
+            {% for chart in charts %}
+            <div class="chart">
+                {{ chart|safe }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
