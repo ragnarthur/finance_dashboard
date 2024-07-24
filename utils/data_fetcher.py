@@ -1,8 +1,11 @@
+import os
 import requests
 import pandas as pd
 import plotly.graph_objects as go
+from dotenv import load_dotenv
 
-API_KEY = 'OX8PKTP2LZZZ7JO8'
+load_dotenv()
+API_KEY = os.getenv('ALPHA_VANTAGE_API_KEY')
 
 def get_stock_data(symbol):
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval=5min&apikey={API_KEY}'

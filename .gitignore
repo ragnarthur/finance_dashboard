@@ -1,1 +1,33 @@
-.venv
+# Ambiente Virtual
+.venv/
+
+# Arquivos de Configuração do Ambiente
+.env
+
+# Arquivos e Diretórios do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Arquivos de Banco de Dados
+*.sqlite3
+
+# Arquivos de Log
+*.log
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# IDEs e Editores de Texto
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Arquivos de Configuração Diversos
+*.swp
