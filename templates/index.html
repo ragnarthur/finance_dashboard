@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Finance Dashboard</title>
+    <title>FinanVision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Finance Dashboard</h1>
+    <div class="navbar">
+        <div class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/logo/logo.jpg') }}" alt="FinanVision Logo" class="logo">
+            <span>FinanVision</span>
+        </div>
+        <div class="navbar-links">
+            <a href="/">Home</a>
+            <a href="/about">Sobre</a>
+        </div>
+    </div>
+    <h1>FinanVision Dashboard</h1>
     <div class="dashboard">
         <div class="controls">
             <label for="symbol-select">Selecione uma ação:</label>
-            <select id="symbol-select">
+            <select id="symbol-select" class="custom-select">
                 <option value="" selected>Selecione aqui</option>
                 {% for symbol in symbols %}
                 <option value="{{ symbol }}">{{ company_names[symbol] }}</option>
@@ -32,8 +43,8 @@
                 </div>
             </div>
         </div>
-        <div class="top-stocks">
-            <h2>Top 5 Ações</h2>
+        <div class="top-stocks" id="top-stocks">
+            <h2>Top 10 Ações</h2>
             <table>
                 <thead>
                     <tr>
@@ -69,6 +80,14 @@
     </div>
     <script>
         $(document).ready(function(){
+            $('#symbol-select').focus(function(){
+                $(this).find('option[value=""]').remove();
+            }).blur(function(){
+                if ($(this).val() === "") {
+                    $(this).prepend('<option value="" selected>Selecione aqui</option>');
+                }
+            });
+
             $('#symbol-select').change(function(){
                 var selectedSymbol = $(this).val();
                 if (selectedSymbol) {

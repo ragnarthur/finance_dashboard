@@ -1,6 +1,7 @@
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 from datetime import datetime, timedelta
 
 # Cache para armazenar os dados
@@ -14,7 +15,6 @@ company_names = {
     'GOOGL': 'Alphabet Inc.',
     'AMZN': 'Amazon.com Inc.',
     'TSLA': 'Tesla Inc.',
-    'FB': 'Meta Platforms, Inc.',
     'NFLX': 'Netflix, Inc.',
     'NVDA': 'NVIDIA Corporation',
     'PYPL': 'PayPal Holdings, Inc.',
@@ -72,7 +72,8 @@ def create_stock_chart(df, symbol):
             xanchor="right",
             x=1
         ),
-        margin=dict(l=40, r=40, t=40, b=40)
+        margin=dict(l=40, r=40, t=40, b=40),
+        template='plotly_dark'  # Usar tema escuro
     )
 
     return fig
@@ -85,7 +86,8 @@ def create_volume_chart(df, symbol):
         title=f'Volume de Negociação: {company_names[symbol]}',
         xaxis_title='Tempo',
         yaxis_title='Volume',
-        margin=dict(l=40, r=40, t=40, b=40)
+        margin=dict(l=40, r=40, t=40, b=40),
+        template='plotly_dark'  # Usar tema escuro
     )
 
     return fig
@@ -99,14 +101,47 @@ def create_open_close_chart(df, symbol):
         title=f'Preço de Abertura e Fechamento: {company_names[symbol]}',
         xaxis_title='Tempo',
         yaxis_title='Preço',
-        margin=dict(l=40, r=40, t=40, b=40)
+        margin=dict(l=40, r=40, t=40, b=40),
+        template='plotly_dark'  # Usar tema escuro
     )
 
     return fig
 
-def get_top_5_stocks():
+def create_pie_chart(top_stocks):
+    labels = [company_names[stock[0]] for stock in top_stocks]
+    values = [stock[2] for stock in top_stocks]
+
+    fig = px.pie(
+        names=labels, 
+        values=values, 
+        title='Distribuição das Top 10 Ações por Preço de Fechamento'
+    )
+
+    fig.update_layout(
+        template='plotly_dark'  # Usar tema escuro
+    )
+
+    return fig
+
+def create_bar_chart(top_stocks):
+    labels = [company_names[stock[0]] for stock in top_stocks]
+    values = [stock[4] for stock in top_stocks]
+
+    fig = px.bar(
+        x=labels, 
+        y=values, 
+        title='Variação Percentual das Top 10 Ações'
+    )
+
+    fig.update_layout(
+        template='plotly_dark'  # Usar tema escuro
+    )
+
+    return fig
+
+def get_top_10_stocks():
     # Lista de símbolos das ações para monitorar
-    symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']
+    symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'NFLX', 'NVDA', 'PYPL', 'ADBE']
     top_stocks = []
 
     for symbol in symbols:
@@ -125,7 +160,7 @@ def get_top_5_stocks():
     # Ordenar as ações pelo preço de fechamento mais recente em ordem decrescente
     top_stocks.sort(key=lambda x: x[2], reverse=True)
 
-    return top_stocks[:5]
+    return top_stocks[:10]
 
 def get_all_symbols():
     # Lista completa de símbolos a serem monitorados

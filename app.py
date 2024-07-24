@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from utils.data_fetcher import (
     get_processed_stock_data, create_stock_chart, 
     create_volume_chart, create_open_close_chart,
-    get_top_5_stocks, get_all_symbols, company_names
+    get_top_10_stocks, get_all_symbols, company_names
 )
 import plotly.express as px
 import pandas as pd
@@ -16,10 +16,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     try:
-        # Obtenha a lista das top 5 ações
-        top_stocks = get_top_5_stocks()
+        # Obtenha a lista das top 10 ações
+        top_stocks = get_top_10_stocks()
 
-        # Crie gráficos para as top 5 ações
+        # Crie gráficos para as top 10 ações
         charts = []
         for stock in top_stocks:
             symbol = stock[0]
@@ -34,6 +34,10 @@ def index():
     except Exception as e:
         logging.error(f"Erro ao carregar a página inicial: {e}")
         return render_template('error.html', message=str(e))
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/update_chart', methods=['POST'])
 def update_chart():
@@ -58,7 +62,7 @@ def update_chart():
 @app.route('/update_pie_chart')
 def update_pie_chart():
     try:
-        top_stocks = get_top_5_stocks()
+        top_stocks = get_top_10_stocks()
         logging.debug(f"Top stocks: {top_stocks}")
 
         names = [company_names[stock[0]] for stock in top_stocks]
@@ -71,8 +75,9 @@ def update_pie_chart():
         })
         logging.debug(f"DataFrame para gráfico de pizza: {df_pie}")
 
-        fig_pie = px.pie(df_pie, names='Ação', values='Volume', title='Distribuição de Volume das Ações Top 5')
+        fig_pie = px.pie(df_pie, names='Ação', values='Volume', title='Distribuição de Volume das Ações Top 10')
         fig_pie.update_traces(textposition='inside', textinfo='percent+label')
+        fig_pie.update_layout(template='plotly_dark')  # Usar tema escuro
 
         graph_html_pie = fig_pie.to_html(full_html=False)
         return jsonify({'graph_html_pie': graph_html_pie})
@@ -83,7 +88,7 @@ def update_pie_chart():
 @app.route('/update_bar_chart')
 def update_bar_chart():
     try:
-        top_stocks = get_top_5_stocks()
+        top_stocks = get_top_10_stocks()
         logging.debug(f"Top stocks: {top_stocks}")
 
         names = [company_names[stock[0]] for stock in top_stocks]
@@ -95,8 +100,9 @@ def update_bar_chart():
         })
         logging.debug(f"DataFrame para gráfico de barras: {df_bar}")
 
-        fig_bar = px.bar(df_bar, x='Ação', y='Variação Percentual', title='Variação Percentual das Top 5 Ações')
+        fig_bar = px.bar(df_bar, x='Ação', y='Variação Percentual', title='Variação Percentual das Top 10 Ações')
         fig_bar.update_traces(textposition='outside')
+        fig_bar.update_layout(template='plotly_dark')  # Usar tema escuro
 
         graph_html_bar = fig_bar.to_html(full_html=False)
         return jsonify({'graph_html_bar': graph_html_bar})
