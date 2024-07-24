@@ -77,6 +77,33 @@ def create_stock_chart(df, symbol):
 
     return fig
 
+def create_volume_chart(df, symbol):
+    fig = go.Figure()
+    fig.add_trace(go.Bar(x=df['timestamp'], y=df['volume'], name='Volume'))
+
+    fig.update_layout(
+        title=f'Volume de Negociação: {company_names[symbol]}',
+        xaxis_title='Tempo',
+        yaxis_title='Volume',
+        margin=dict(l=40, r=40, t=40, b=40)
+    )
+
+    return fig
+
+def create_open_close_chart(df, symbol):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df['timestamp'], y=df['open'], mode='lines', name='Preço de Abertura'))
+    fig.add_trace(go.Scatter(x=df['timestamp'], y=df['close'], mode='lines', name='Preço de Fechamento'))
+
+    fig.update_layout(
+        title=f'Preço de Abertura e Fechamento: {company_names[symbol]}',
+        xaxis_title='Tempo',
+        yaxis_title='Preço',
+        margin=dict(l=40, r=40, t=40, b=40)
+    )
+
+    return fig
+
 def get_top_5_stocks():
     # Lista de símbolos das ações para monitorar
     symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA']

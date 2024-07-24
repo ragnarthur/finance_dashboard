@@ -11,14 +11,25 @@
         <div class="controls">
             <label for="symbol-select">Selecione uma ação:</label>
             <select id="symbol-select">
+                <option value="" selected>Selecione aqui</option>
                 {% for symbol in symbols %}
                 <option value="{{ symbol }}">{{ company_names[symbol] }}</option>
                 {% endfor %}
             </select>
         </div>
         <div id="chart-container">
-            <div class="chart">
-                {{ charts[0]|safe }}
+            <div class="chart" id="chart-price">
+                <!-- Gráfico será atualizado aqui -->
+            </div>
+            <div class="chart" id="chart-volume">
+            </div>
+            <div class="chart" id="chart-open-close">
+            </div>
+            <div class="charts-row">
+                <div class="chart" id="chart-pie">
+                </div>
+                <div class="chart" id="chart-bar">
+                </div>
             </div>
         </div>
         <div class="top-stocks">
@@ -35,7 +46,7 @@
                 <tbody>
                     {% for stock in top_stocks %}
                     <tr>
-                        <td>{{ stock[1] }}</td>
+                        <td>{{ company_names[stock[0]] }}</td>
                         <td>${{ "{:,.2f}".format(stock[2]) }}</td>
                         <td>{{ "{:,.0f}".format(stock[3]).replace(',', '.') }}</td>
                         <td>{{ "{:,.2f}".format(stock[4]) }}%</td>
@@ -43,9 +54,16 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="note">
-                <p><strong>Nota:</strong> O volume representa o número total de ações negociadas durante um determinado período. É uma medida da liquidez de uma ação e pode indicar a intensidade da atividade de negociação.</p>
-                <p><strong>Nota:</strong> As médias móveis de 20 e 50 períodos são indicadores técnicos que mostram o preço médio de uma ação ao longo de 20 ou 50 períodos de tempo, respectivamente. Eles são usados para identificar tendências e potenciais pontos de entrada ou saída.</p>
+            <div class="notes">
+                <div class="note">
+                    <span class="note-title">Nota:</span> O volume representa o número total de ações negociadas durante um determinado período. É uma medida da liquidez de uma ação e pode indicar a intensidade da atividade de negociação.
+                </div>
+                <div class="note">
+                    <span class="note-title">Nota:</span> As médias móveis de 20 e 50 períodos são indicadores técnicos que mostram o preço médio de uma ação ao longo de 20 ou 50 períodos de tempo, respectivamente. Eles são usados para identificar tendências e potenciais pontos de entrada ou saída.
+                </div>
+                <div class="note">
+                    <span class="note-title">Nota:</span> A variação percentual mostra a diferença percentual entre o preço de abertura e o preço de fechamento de uma ação em um determinado período de tempo. É um indicador de quão volátil ou estável a ação está durante esse período.
+                </div>
             </div>
         </div>
     </div>
@@ -53,10 +71,31 @@
         $(document).ready(function(){
             $('#symbol-select').change(function(){
                 var selectedSymbol = $(this).val();
-                $.post('/update_chart', {symbol: selectedSymbol}, function(data){
-                    $('#chart-container').html(data.graph_html);
-                });
+                if (selectedSymbol) {
+                    $.post('/update_chart', {symbol: selectedSymbol}, function(data){
+                        $('#chart-price').html(data.graph_html_price);
+                        $('#chart-volume').html(data.graph_html_volume);
+                        $('#chart-open-close').html(data.graph_html_open_close);
+                    });
+                }
             });
+
+            function updatePieChart() {
+                $.get('/update_pie_chart', function(data) {
+                    $('#chart-pie').html(data.graph_html_pie);
+                });
+            }
+
+            function updateBarChart() {
+                $.get('/update_bar_chart', function(data) {
+                    $('#chart-bar').html(data.graph_html_bar);
+                });
+            }
+
+            setInterval(updatePieChart, 600000);  // Atualiza a cada 10 minutos
+            setInterval(updateBarChart, 600000);  // Atualiza a cada 10 minutos
+            updatePieChart();  // Atualiza na primeira carga
+            updateBarChart();  // Atualiza na primeira carga
         });
     </script>
 </body>
