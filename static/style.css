@@ -25,7 +25,7 @@ body {
 .navbar a {
     color: #fff;
     text-decoration: none;
-    padding: 8px 20px; /* Ajustar padding para adicionar espaço */
+    padding: 8px 20px;
     transition: background-color 0.3s;
 }
 
@@ -48,13 +48,13 @@ body {
 .navbar-links {
     display: flex;
     gap: 10px;
-    margin-right: 20px; /* Adiciona um pouco de margem à direita */
+    margin-right: 20px;
 }
 
 h1 {
     text-align: center;
     color: #fff;
-    margin-top: 80px;  /* Adiciona um espaço extra para compensar a navbar fixa */
+    margin-top: 80px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
@@ -67,7 +67,7 @@ h1 {
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 40px;  /* Adiciona um espaço extra para compensar a navbar fixa */
+    margin-top: 40px;
     max-width: 100%;
 }
 
@@ -99,7 +99,7 @@ h1 {
     outline: none;
 }
 
-.top-stocks {
+.top-stocks, .top-cryptos {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 20px;
@@ -108,13 +108,13 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.top-stocks h2 {
+.top-stocks h2, .top-cryptos h2 {
     text-align: center;
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.top-stocks table {
+.top-stocks table, .top-cryptos table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -122,24 +122,24 @@ h1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.top-stocks th, .top-stocks td {
+.top-stocks th, .top-cryptos th, .top-stocks td, .top-cryptos td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.top-stocks th {
+.top-stocks th, .top-cryptos th {
     background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.top-stocks tr {
+.top-stocks tr, .top-cryptos tr {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.top-stocks tr:hover {
+.top-stocks tr:hover, .top-cryptos tr:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: rgba(33, 150, 243, 0.2);
@@ -166,7 +166,7 @@ h1 {
 }
 
 .charts-row .chart {
-    width: 48%;  /* Voltar à largura original */
+    width: 48%;
 }
 
 @media (max-width: 768px) {

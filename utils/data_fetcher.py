@@ -1,7 +1,6 @@
 import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
-import plotly.express as px
 from datetime import datetime, timedelta
 
 # Cache para armazenar os dados
@@ -73,7 +72,14 @@ def create_stock_chart(df, symbol):
             x=1
         ),
         margin=dict(l=40, r=40, t=40, b=40),
-        template='plotly_dark'  # Usar tema escuro
+        plot_bgcolor='rgba(0, 0, 0, 0.8)',
+        paper_bgcolor='rgba(0, 0, 0, 0.8)',
+        font_color='white',
+        title_font_color='white',
+        xaxis_title_font_color='white',
+        yaxis_title_font_color='white',
+        xaxis=dict(showgrid=False, zeroline=False),
+        yaxis=dict(showgrid=False, zeroline=False)
     )
 
     return fig
@@ -87,7 +93,14 @@ def create_volume_chart(df, symbol):
         xaxis_title='Tempo',
         yaxis_title='Volume',
         margin=dict(l=40, r=40, t=40, b=40),
-        template='plotly_dark'  # Usar tema escuro
+        plot_bgcolor='rgba(0, 0, 0, 0.8)',
+        paper_bgcolor='rgba(0, 0, 0, 0.8)',
+        font_color='white',
+        title_font_color='white',
+        xaxis_title_font_color='white',
+        yaxis_title_font_color='white',
+        xaxis=dict(showgrid=False, zeroline=False),
+        yaxis=dict(showgrid=False, zeroline=False)
     )
 
     return fig
@@ -102,39 +115,14 @@ def create_open_close_chart(df, symbol):
         xaxis_title='Tempo',
         yaxis_title='Preço',
         margin=dict(l=40, r=40, t=40, b=40),
-        template='plotly_dark'  # Usar tema escuro
-    )
-
-    return fig
-
-def create_pie_chart(top_stocks):
-    labels = [company_names[stock[0]] for stock in top_stocks]
-    values = [stock[2] for stock in top_stocks]
-
-    fig = px.pie(
-        names=labels, 
-        values=values, 
-        title='Distribuição das Top 10 Ações por Preço de Fechamento'
-    )
-
-    fig.update_layout(
-        template='plotly_dark'  # Usar tema escuro
-    )
-
-    return fig
-
-def create_bar_chart(top_stocks):
-    labels = [company_names[stock[0]] for stock in top_stocks]
-    values = [stock[4] for stock in top_stocks]
-
-    fig = px.bar(
-        x=labels, 
-        y=values, 
-        title='Variação Percentual das Top 10 Ações'
-    )
-
-    fig.update_layout(
-        template='plotly_dark'  # Usar tema escuro
+        plot_bgcolor='rgba(0, 0, 0, 0.8)',
+        paper_bgcolor='rgba(0, 0, 0, 0.8)',
+        font_color='white',
+        title_font_color='white',
+        xaxis_title_font_color='white',
+        yaxis_title_font_color='white',
+        xaxis=dict(showgrid=False, zeroline=False),
+        yaxis=dict(showgrid=False, zeroline=False)
     )
 
     return fig

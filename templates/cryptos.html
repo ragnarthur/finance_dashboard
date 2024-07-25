@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FinanVision</title>
+    <title>FinanVision - Criptomoedas</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -18,14 +18,14 @@
             <a href="/about">Sobre</a>
         </div>
     </div>
-    <h1>FinanVision Dashboard</h1>
+    <h1>FinanVision Dashboard - Criptomoedas</h1>
     <div class="dashboard">
         <div class="controls">
-            <label for="symbol-select">Selecione uma ação:</label>
-            <select id="symbol-select" class="custom-select">
+            <label for="crypto-select">Selecione uma criptomoeda:</label>
+            <select id="crypto-select" class="custom-select">
                 <option value="" selected>Selecione aqui</option>
-                {% for symbol in symbols %}
-                <option value="{{ symbol }}">{{ company_names[symbol] }}</option>
+                {% for crypto in top_cryptos %}
+                <option value="{{ crypto['id'] }}">{{ crypto['name'] }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -39,49 +39,52 @@
             </div>
             <div class="charts-row">
                 <div class="chart" id="chart-pie">
+                    {{ graph_html_pie|safe }}
                 </div>
                 <div class="chart" id="chart-bar">
                 </div>
             </div>
         </div>
-        <div class="top-stocks" id="top-stocks">
-            <h2>Top 10 Ações</h2>
+        <div class="top-cryptos" id="top-cryptos">
+            <h2>Top 10 Criptomoedas</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Preço de Fechamento</th>
-                        <th>Volume</th>
-                        <th>Variação Percentual</th>
+                        <th>Preço Atual</th>
+                        <th>Market Cap</th>
+                        <th>Volume de Mercado</th>
+                        <th>Variação Percentual (24h)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for stock in top_stocks %}
+                    {% for crypto in top_cryptos %}
                     <tr>
-                        <td>{{ company_names[stock[0]] }}</td>
-                        <td>${{ "{:,.2f}".format(stock[2]) }}</td>
-                        <td>{{ "{:,.0f}".format(stock[3]).replace(',', '.') }}</td>
-                        <td>{{ "{:,.2f}".format(stock[4]) }}%</td>
+                        <td>{{ crypto['name'] }}</td>
+                        <td>${{ "{:,.2f}".format(crypto['current_price']) }}</td>
+                        <td>${{ "{:,.0f}".format(crypto['market_cap']) }}</td>
+                        <td>${{ "{:,.0f}".format(crypto['total_volume']) }}</td>
+                        <td>{{ "{:,.2f}".format(crypto['price_change_percentage_24h']) }}%</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="notes">
                 <div class="note">
-                    <span class="note-title">Nota:</span> O volume representa o número total de ações negociadas durante um determinado período. É uma medida da liquidez de uma ação e pode indicar a intensidade da atividade de negociação.
+                    <span class="note-title">Nota:</span> O Market Cap (Capitalização de Mercado) é o valor total de mercado de uma criptomoeda. Ele é calculado multiplicando-se o preço atual pelo número total de moedas em circulação. Um Market Cap maior geralmente indica uma criptomoeda mais estabelecida e menos volátil.
                 </div>
                 <div class="note">
-                    <span class="note-title">Nota:</span> As médias móveis de 20 e 50 períodos são indicadores técnicos que mostram o preço médio de uma ação ao longo de 20 ou 50 períodos de tempo, respectivamente. Eles são usados para identificar tendências e potenciais pontos de entrada ou saída.
+                    <span class="note-title">Nota:</span> O volume de mercado representa o valor total das transações de uma criptomoeda durante um determinado período. É uma medida da liquidez de uma criptomoeda e pode indicar a intensidade da atividade de negociação.
                 </div>
                 <div class="note">
-                    <span class="note-title">Nota:</span> A variação percentual mostra a diferença percentual entre o preço de abertura e o preço de fechamento de uma ação em um determinado período de tempo. É um indicador de quão volátil ou estável a ação está durante esse período.
+                    <span class="note-title">Nota:</span> A variação percentual mostra a diferença percentual entre o preço de abertura e o preço de fechamento de uma criptomoeda em um determinado período de tempo. É um indicador de quão volátil ou estável a criptomoeda está durante esse período.
                 </div>
             </div>
         </div>
     </div>
     <script>
         $(document).ready(function(){
-            $('#symbol-select').focus(function(){
+            $('#crypto-select').focus(function(){
                 $(this).find('option[value=""]').remove();
             }).blur(function(){
                 if ($(this).val() === "") {
@@ -89,10 +92,10 @@
                 }
             });
 
-            $('#symbol-select').change(function(){
-                var selectedSymbol = $(this).val();
-                if (selectedSymbol) {
-                    $.post('/update_chart', {symbol: selectedSymbol}, function(data){
+            $('#crypto-select').change(function(){
+                var selectedCrypto = $(this).val();
+                if (selectedCrypto) {
+                    $.post('/update_crypto_chart', {crypto: selectedCrypto}, function(data){
                         $('#chart-price').html(data.graph_html_price);
                         $('#chart-volume').html(data.graph_html_volume);
                         $('#chart-open-close').html(data.graph_html_open_close);
@@ -101,13 +104,13 @@
             });
 
             function updatePieChart() {
-                $.get('/update_pie_chart', function(data) {
+                $.get('/update_crypto_pie_chart', function(data) {
                     $('#chart-pie').html(data.graph_html_pie);
                 });
             }
 
             function updateBarChart() {
-                $.get('/update_bar_chart', function(data) {
+                $.get('/update_crypto_bar_chart', function(data) {
                     $('#chart-bar').html(data.graph_html_bar);
                 });
             }
