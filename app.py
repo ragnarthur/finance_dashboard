@@ -62,11 +62,9 @@ def update_chart():
 def update_pie_chart():
     try:
         top_stocks = get_top_10_stocks()
-        logging.debug(f"Top stocks: {top_stocks}")
         names = [company_names[stock[0]] for stock in top_stocks]
         volumes = [stock[3] for stock in top_stocks]
         df_pie = pd.DataFrame({'Ação': names, 'Volume': volumes, 'Tempo': ['Atual'] * len(names)})
-        logging.debug(f"DataFrame para gráfico de pizza: {df_pie}")
         fig_pie = px.pie(df_pie, names='Ação', values='Volume', title='Distribuição de Volume das Ações Top 10')
         fig_pie.update_traces(textposition='inside', textinfo='percent+label')
         fig_pie.update_layout(plot_bgcolor='rgba(0, 0, 0, 0.8)', paper_bgcolor='rgba(0, 0, 0, 0.8)', font_color='white', title_font_color='white')
@@ -80,11 +78,9 @@ def update_pie_chart():
 def update_bar_chart():
     try:
         top_stocks = get_top_10_stocks()
-        logging.debug(f"Top stocks: {top_stocks}")
         names = [company_names[stock[0]] for stock in top_stocks]
         percent_changes = [stock[4] for stock in top_stocks]
         df_bar = pd.DataFrame({'Ação': names, 'Variação Percentual': percent_changes})
-        logging.debug(f"DataFrame para gráfico de barras: {df_bar}")
         fig_bar = px.bar(df_bar, x='Ação', y='Variação Percentual', title='Variação Percentual das Top 10 Ações')
         fig_bar.update_traces(textposition='outside')
         fig_bar.update_layout(plot_bgcolor='rgba(0, 0, 0, 0.8)', paper_bgcolor='rgba(0, 0, 0, 0.8)', font_color='white', title_font_color='white', xaxis_title_font_color='white', yaxis_title_font_color='white', xaxis=dict(showgrid=False, zeroline=False), yaxis=dict(showgrid=False, zeroline=False))
@@ -93,6 +89,7 @@ def update_bar_chart():
     except Exception as e:
         logging.error(f"Erro ao atualizar o gráfico de barras: {e}")
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/update_crypto_chart', methods=['POST'])
 def update_crypto_chart():

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>FinanVision</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-    <div class="navbar">
+    <nav class="navbar">
         <div class="navbar-brand">
             <img src="{{ url_for('static', filename='images/logo/logo.jpg') }}" alt="FinanVision Logo" class="logo">
             <span>FinanVision</span>
@@ -17,85 +19,91 @@
             <a href="/cryptos" id="crypto-nav-link">Criptomoedas</a>
             <a href="/about">Sobre</a>
         </div>
-    </div>
-    <h1>FinanVision Dashboard</h1>
-    <div class="dashboard">
-        <div class="controls">
-            <label for="crypto-select">Selecione uma criptomoeda:</label>
-            <select id="crypto-select" class="custom-select">
-                <option value="" selected>Selecione aqui</option>
-                {% for crypto in top_cryptos %}
-                <option value="{{ crypto['id'] }}">{{ crypto['name'] }}</option>
-                {% endfor %}
-            </select>
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>Aguarde...</p>
-            </div>
-        </div>
-        <div id="chart-container">
-            <div class="chart" id="chart-price">
-                <!-- Gráfico será atualizado aqui -->
-            </div>
-            <div class="chart" id="chart-volume">
-            </div>
-            <div class="charts-row">
-                <div class="chart" id="chart-pie">
-                </div>
-                <div class="chart" id="chart-bar">
-                </div>
-            </div>
-        </div>
-        <div class="top-cryptos" id="top-cryptos">
-            <h2>Top 10 Criptomoedas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Preço Atual</th>
-                        <th>Volume</th>
-                        <th>Preço de Abertura</th>
-                    </tr>
-                </thead>
-                <tbody>
+    </nav>
+    <div class="container">
+        <h1>FinanVision Dashboard</h1>
+        <div class="dashboard">
+            <div class="controls">
+                <label for="crypto-select">Selecione uma criptomoeda:</label>
+                <select id="crypto-select" class="custom-select">
+                    <option value="" selected>Selecione aqui</option>
                     {% for crypto in top_cryptos %}
-                    <tr>
-                        <td>{{ crypto['name'] }}</td>
-                        <td>${{ "{:,.2f}".format(crypto['current_price']) }}</td>
-                        <td>{{ "{:,.0f}".format(crypto['total_volume']).replace(',', '.') }}</td>
-                        <td>${{ "{:,.2f}".format(crypto['opening_price']) }}</td>
-                    </tr>
+                    <option value="{{ crypto['id'] }}">{{ crypto['name'] }}</option>
                     {% endfor %}
-                </tbody>
-            </table>
-            <div class="notes">
-                <div class="note">
-                    <span class="note-title">Nota:</span> O volume representa o número total de unidades da criptomoeda negociadas durante um determinado período. É uma medida da liquidez de uma criptomoeda e pode indicar a intensidade da atividade de negociação.
+                </select>
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Aguarde...</p>
                 </div>
-                <div class="note">
-                    <span class="note-title">Nota:</span> O preço de abertura é o preço da primeira transação da criptomoeda no período considerado. Ele pode ser usado para comparar com o preço atual e observar as tendências de preço.
+            </div>
+            <div id="chart-container">
+                <div class="chart" id="chart-price">
+                    <!-- Gráfico será atualizado aqui -->
+                </div>
+                <div class="chart" id="chart-volume">
+                </div>
+                <div class="charts-row">
+                    <div class="chart" id="chart-pie">
+                    </div>
+                    <div class="chart" id="chart-bar">
+                    </div>
+                </div>
+            </div>
+            <div class="top-cryptos" id="top-cryptos">
+                <h2>Top 10 Criptomoedas</h2>
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Preço Atual</th>
+                            <th>Volume</th>
+                            <th>Preço de Abertura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for crypto in top_cryptos %}
+                        <tr>
+                            <td>{{ crypto['name'] }}</td>
+                            <td>${{ "{:,.2f}".format(crypto['current_price']) }}</td>
+                            <td>{{ "{:,.0f}".format(crypto['total_volume']).replace(',', '.') }}</td>
+                            <td>${{ "{:,.2f}".format(crypto['opening_price']) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="notes">
+                    <div class="note">
+                        <span class="note-title">Nota:</span> O volume representa o número total de unidades da
+                        criptomoeda negociadas durante um determinado período. É uma medida da liquidez de uma
+                        criptomoeda e pode indicar a intensidade da atividade de negociação.
+                    </div>
+                    <div class="note">
+                        <span class="note-title">Nota:</span> O preço de abertura é o preço da primeira transação da
+                        criptomoeda no período considerado. Ele pode ser usado para comparar com o preço atual e observar
+                        as tendências de preço.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#loading').hide();
 
-            $('#crypto-select').focus(function(){
+            $('#crypto-select').focus(function () {
                 $(this).find('option[value=""]').remove();
-            }).blur(function(){
+            }).blur(function () {
                 if ($(this).val() === "") {
                     $(this).prepend('<option value="" selected>Selecione aqui</option>');
                 }
             });
 
-            $('#crypto-select').change(function(){
+            $('#crypto-select').change(function () {
                 var selectedCrypto = $(this).val();
                 if (selectedCrypto) {
                     $('#loading').fadeIn();
-                    setTimeout(function(){
-                        $.post('/update_crypto_chart', {crypto: selectedCrypto}, function(data){
+                    setTimeout(function () {
+                        $.post('/update_crypto_chart', { crypto: selectedCrypto }, function (data) {
                             $('#chart-price').html(data.graph_html_price);
                             $('#chart-volume').html(data.graph_html_volume);
                             $('#loading').fadeOut();
@@ -105,13 +113,13 @@
             });
 
             function updatePieChart() {
-                $.get('/update_crypto_pie_chart', function(data) {
+                $.get('/update_crypto_pie_chart', function (data) {
                     $('#chart-pie').html(data.graph_html_pie);
                 });
             }
 
             function updateBarChart() {
-                $.get('/update_crypto_bar_chart', function(data) {
+                $.get('/update_crypto_bar_chart', function (data) {
                     $('#chart-bar').html(data.graph_html_bar);
                 });
             }
@@ -123,4 +131,5 @@
         });
     </script>
 </body>
+
 </html>
