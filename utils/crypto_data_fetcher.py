@@ -1,27 +1,38 @@
-import requests
+import yfinance as yf
 
 def get_top_10_cryptos():
-    url = 'https://api.coingecko.com/api/v3/coins/markets'
-    params = {
-        'vs_currency': 'usd',
-        'order': 'market_cap_desc',
-        'per_page': 10,
-        'page': 1,
-        'sparkline': False
-    }
-    response = requests.get(url, params=params)
-    data = response.json()
-
+    symbols = ['BTC-USD', 'ETH-USD', 'BNB-USD', 'ADA-USD', 'XRP-USD', 'DOGE-USD', 'SOL-USD', 'DOT-USD', 'UNI-USD', 'LTC-USD']
     top_cryptos = []
-    for crypto in data:
+
+    for symbol in symbols:
+        data = yf.Ticker(symbol)
+        hist = data.history(period="1d")
+        if not hist.empty:
+            current_price = hist['Close'].iloc[-1]
+            volume = hist['Volume'].iloc[-1]
+            opening_price = hist['Open'].iloc[0]
+        else:
+            current_price = 0
+            volume = 0
+            opening_price = 0
+
         top_cryptos.append({
-            'id': crypto['id'],
-            'symbol': crypto['symbol'].upper(),
-            'name': crypto['name'],
-            'current_price': crypto['current_price'],
-            'market_cap': crypto['market_cap'],
-            'total_volume': crypto['total_volume'],  # Adicionado volume de mercado
-            'price_change_percentage_24h': crypto['price_change_percentage_24h']
+            'id': symbol,
+            'symbol': symbol,
+            'name': data.info.get('name', symbol),
+            'current_price': current_price,
+            'total_volume': volume,
+            'opening_price': opening_price
         })
 
     return top_cryptos
+
+def get_crypto_data(symbol):
+    ticker = yf.Ticker(symbol)
+    hist = ticker.history(period="5d", interval="1h")
+    data = {
+        'timestamp': hist.index.tolist(),
+        'price': hist['Close'].tolist(),
+        'volume': hist['Volume'].tolist()
+    }
+    return data

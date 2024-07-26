@@ -14,7 +14,7 @@
         </div>
         <div class="navbar-links">
             <a href="/">Home</a>
-            <a href="/cryptos">Criptomoedas</a>
+            <a href="/cryptos" id="crypto-nav-link">Criptomoedas</a>
             <a href="/about">Sobre</a>
         </div>
     </div>
@@ -28,6 +28,10 @@
                 <option value="{{ crypto['id'] }}">{{ crypto['name'] }}</option>
                 {% endfor %}
             </select>
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Aguarde...</p>
+            </div>
         </div>
         <div id="chart-container">
             <div class="chart" id="chart-price">
@@ -35,13 +39,10 @@
             </div>
             <div class="chart" id="chart-volume">
             </div>
-            <div class="chart" id="chart-open-close">
-            </div>
             <div class="charts-row">
                 <div class="chart" id="chart-pie">
-                    {{ graph_html_pie|safe }}
                 </div>
-                <div class="chart" id="chart-bar">
+                <div class="chart" id="chart-line">
                 </div>
             </div>
         </div>
@@ -52,9 +53,8 @@
                     <tr>
                         <th>Nome</th>
                         <th>Preço Atual</th>
-                        <th>Market Cap</th>
-                        <th>Volume de Mercado</th>
-                        <th>Variação Percentual (24h)</th>
+                        <th>Volume Total</th>
+                        <th>Preço de Abertura</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,28 +62,18 @@
                     <tr>
                         <td>{{ crypto['name'] }}</td>
                         <td>${{ "{:,.2f}".format(crypto['current_price']) }}</td>
-                        <td>${{ "{:,.0f}".format(crypto['market_cap']) }}</td>
-                        <td>${{ "{:,.0f}".format(crypto['total_volume']) }}</td>
-                        <td>{{ "{:,.2f}".format(crypto['price_change_percentage_24h']) }}%</td>
+                        <td>{{ "{:,.0f}".format(crypto['total_volume']).replace(',', '.') }}</td>
+                        <td>${{ "{:,.2f}".format(crypto['opening_price']) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="notes">
-                <div class="note">
-                    <span class="note-title">Nota:</span> O Market Cap (Capitalização de Mercado) é o valor total de mercado de uma criptomoeda. Ele é calculado multiplicando-se o preço atual pelo número total de moedas em circulação. Um Market Cap maior geralmente indica uma criptomoeda mais estabelecida e menos volátil.
-                </div>
-                <div class="note">
-                    <span class="note-title">Nota:</span> O volume de mercado representa o valor total das transações de uma criptomoeda durante um determinado período. É uma medida da liquidez de uma criptomoeda e pode indicar a intensidade da atividade de negociação.
-                </div>
-                <div class="note">
-                    <span class="note-title">Nota:</span> A variação percentual mostra a diferença percentual entre o preço de abertura e o preço de fechamento de uma criptomoeda em um determinado período de tempo. É um indicador de quão volátil ou estável a criptomoeda está durante esse período.
-                </div>
-            </div>
         </div>
     </div>
     <script>
         $(document).ready(function(){
+            $('#loading').hide();
+
             $('#crypto-select').focus(function(){
                 $(this).find('option[value=""]').remove();
             }).blur(function(){
@@ -95,11 +85,14 @@
             $('#crypto-select').change(function(){
                 var selectedCrypto = $(this).val();
                 if (selectedCrypto) {
-                    $.post('/update_crypto_chart', {crypto: selectedCrypto}, function(data){
-                        $('#chart-price').html(data.graph_html_price);
-                        $('#chart-volume').html(data.graph_html_volume);
-                        $('#chart-open-close').html(data.graph_html_open_close);
-                    });
+                    $('#loading').fadeIn();
+                    setTimeout(function(){
+                        $.post('/update_crypto_chart', {crypto: selectedCrypto}, function(data){
+                            $('#chart-price').html(data.graph_html_price);
+                            $('#chart-volume').html(data.graph_html_volume);
+                            $('#loading').fadeOut();
+                        });
+                    }, 3000); // Espera 3 segundos antes de realizar a pesquisa
                 }
             });
 
@@ -109,16 +102,16 @@
                 });
             }
 
-            function updateBarChart() {
-                $.get('/update_crypto_bar_chart', function(data) {
-                    $('#chart-bar').html(data.graph_html_bar);
+            function updateLineChart() {
+                $.get('/update_crypto_line_chart', function(data) {
+                    $('#chart-line').html(data.graph_html_line);
                 });
             }
 
             setInterval(updatePieChart, 600000);  // Atualiza a cada 10 minutos
-            setInterval(updateBarChart, 600000);  // Atualiza a cada 10 minutos
+            setInterval(updateLineChart, 600000);  // Atualiza a cada 10 minutos
             updatePieChart();  // Atualiza na primeira carga
-            updateBarChart();  // Atualiza na primeira carga
+            updateLineChart();  // Atualiza na primeira carga
         });
     </script>
 </body>

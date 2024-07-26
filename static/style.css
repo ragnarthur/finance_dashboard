@@ -231,3 +231,32 @@ h1 {
 .note:hover p {
     color: #fff;
 }
+
+/* Estilo para a animação de carregamento */
+.loading {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-left-color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
