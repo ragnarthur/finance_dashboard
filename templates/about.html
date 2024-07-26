@@ -1,22 +1,190 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Sobre - FinanVision</title>
+    <title>Sobre | FinanVision</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../static/images/background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            padding: 10px 20px;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            opacity: 0.9;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #34495e;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar-brand .logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 10px;
+            margin-right: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-top: 100px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+            background-color: rgba(0, 0, 0, 0.8);
+            margin: 20px auto;
+            border-radius: 9px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+        }
+
+        .section {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        .section img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #4ca1af;
+        }
+
+        .section p {
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section li {
+            background: #4ca1af;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .section a {
+            color: #4ca1af;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .section a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="navbar">
-        <div class="navbar-brand">FinanVision</div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/logo/logo.jpg') }}" alt="FinanVision Logo" class="logo">
+            <span>FinanVision</span>
+        </div>
         <div class="navbar-links">
             <a href="/">Home</a>
+            <a href="/cryptos">Criptomoedas</a>
             <a href="/about">Sobre</a>
         </div>
-    </div>
-    <h1>Sobre</h1>
+    </nav>
+
     <div class="dashboard" id="about">
-        <h2>Sobre o FinanVision</h2>
-        <p>Este dashboard foi desenvolvido para fornecer uma visão abrangente das principais ações do mercado financeiro, incluindo preços de fechamento, volumes de negociação e variações percentuais. Utiliza dados em tempo real para manter as informações atualizadas e relevantes.</p>
+        <h1>Sobre o FinanVision</h1>
+
+        <div class="section">
+            <h2>Sobre o FinanVision</h2>
+            <p>O FinanVision é um dashboard desenvolvido para fornecer uma visão abrangente das principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, ele mantém as informações atualizadas e relevantes para ajudar investidores a tomar decisões informadas.</p>
+        </div>
+
+        <div class="section">
+            <h2>Sobre Arthur Araújo</h2>
+            <img src="{{ url_for('static', filename='images/arthur.jpg') }}" alt="Foto de Arthur Araújo" class="profile-image">
+            <p><strong>Arthur Araújo</strong> é um desenvolvedor e analista de dados com vasta experiência em programação, machine learning e desenvolvimento web. Ele também é professor de música, atuando nas Casas da Família, onde desenvolve projetos de coral e ministra aulas de instrumentos como teclado, piano, guitarra, violão e bateria. Além disso, Arthur é um erudito em questões culturais, com um profundo interesse por pesquisa e leitura de livros.</p>
+            
+            <p>Arthur iniciou sua carreira na área de tecnologia com foco em automação de processos utilizando Python, desenvolvendo uma série de projetos que destacam suas habilidades em análise de dados e desenvolvimento web. Sua paixão por música o levou a combinar suas habilidades técnicas com a música, criando projetos inovadores que mesclam tecnologia e arte.</p>
+            
+            <p>Ele é também o criador do projeto 'CineTop', um sistema de recomendação de filmes, e está constantemente buscando novas maneiras de melhorar suas habilidades e contribuir para a comunidade de desenvolvedores.</p>
+            
+            <p>Entre suas conquistas recentes, Arthur configurou um aplicativo de análise de preços de casas utilizando o dataset 'Ames Housing Dataset' do Kaggle.</p>
+        </div>
+
+        <div class="section">
+            <h2>Missão</h2>
+            <p>Nossa missão é proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados.</p>
+        </div>
+
+        <div class="section">
+            <h2>Valores</h2>
+            <ul>
+                <li><strong>Inovação:</strong> Buscamos constantemente novas tecnologias e métodos para melhorar nossos serviços.</li>
+                <li><strong>Precisão:</strong> Garantimos que todas as informações fornecidas são precisas e atualizadas.</li>
+                <li><strong>Transparência:</strong> Mantemos uma comunicação clara e aberta com nossos usuários.</li>
+                <li><strong>Compromisso:</strong> Estamos comprometidos em oferecer o melhor suporte e ferramentas para nossos usuários.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Contato</h2>
+            <p>Para mais informações, entre em contato conosco através do e-mail: <a href="mailto:arthuraraujo07@hotmail.com">arthuraraujo07@hotmail.com</a>.</p>
+        </div>
     </div>
 </body>
+
 </html>
