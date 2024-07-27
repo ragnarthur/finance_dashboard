@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-links">
             <a href="/">Home</a>
-            <a href="/cryptos" id="crypto-nav-link">Criptomoedas</a>
+            <a href="/cryptos">Criptomoedas</a>
             <a href="/about">Sobre</a>
         </div>
     </nav>
@@ -83,6 +83,17 @@
                         as tendências de preço.
                     </div>
                 </div>
+            </div>
+            <div class="news-section">
+                <h2>Notícias sobre Criptomoedas</h2>
+                <ul class="news-list">
+                    {% for article in news_articles[:5] %}
+                    <li class="news-item">
+                        <a href="{{ article['url'] }}" target="_blank">{{ article['title'] }}</a>
+                        <p>{{ article['description'] }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
