@@ -76,7 +76,7 @@
             margin: 20px auto;
             border-radius: 9px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
+            max-width: 85%;
         }
 
         .section {
@@ -118,6 +118,12 @@
             padding: 10px;
             border-radius: 5px;
             color: #fff;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .section li:hover {
+            background-color: #34495e;
+            transform: translateX(10px);
         }
 
         .section a {
@@ -146,32 +152,33 @@
     </nav>
 
     <div class="dashboard" id="about">
-        <h1>Sobre o FinanVision</h1>
+        <h1>Conheça o FinanVision</h1>
 
         <div class="section">
-            <h2>Sobre o FinanVision</h2>
-            <p>O FinanVision é um dashboard desenvolvido para fornecer uma visão abrangente das principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, ele mantém as informações atualizadas e relevantes para ajudar investidores a tomar decisões informadas.</p>
+            <h2>Nossa Plataforma</h2>
+            <p>O FinanVision é uma plataforma inovadora projetada para oferecer uma visão abrangente das principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, nossa ferramenta mantém as informações sempre atualizadas, permitindo que investidores tomem decisões embasadas e seguras. Nossa missão é democratizar o acesso a dados financeiros precisos e análises detalhadas, capacitando tanto investidores iniciantes quanto experientes a gerenciar seus portfólios com confiança.</p>
+            <p>A FinanVision não apenas monitora os preços de fechamento e volumes de negociação, mas também analisa tendências e padrões no mercado, fornecendo insights valiosos que podem orientar estratégias de investimento. Além disso, nossa plataforma é intuitiva e fácil de usar, garantindo que todos os usuários, independentemente de sua experiência técnica, possam acessar e interpretar dados financeiros complexos com facilidade.</p>
         </div>
 
         <div class="section">
-            <h2>Sobre Arthur Araújo</h2>
+            <h2>Nosso Desenvolvedor Principal</h2>
             <img src="{{ url_for('static', filename='images/arthur.jpg') }}" alt="Foto de Arthur Araújo" class="profile-image">
-            <p><strong>Arthur Araújo</strong> é um desenvolvedor e analista de dados com vasta experiência em programação, machine learning e desenvolvimento web. Ele também é professor de música, atuando nas Casas da Família, onde desenvolve projetos de coral e ministra aulas de instrumentos como teclado, piano, guitarra, violão e bateria. Além disso, Arthur é um erudito em questões culturais, com um profundo interesse por pesquisa e leitura de livros.</p>
+            <p><strong>Arthur Araújo</strong> é um talentoso desenvolvedor e analista de dados, conhecido por sua expertise em programação, machine learning e desenvolvimento web. Com uma paixão pelo ensino, Arthur também atua como professor de música nas Casas da Família, onde lidera projetos de coral e oferece aulas de teclado, piano, guitarra, violão e bateria.</p>
             
-            <p>Arthur iniciou sua carreira na área de tecnologia com foco em automação de processos utilizando Python, desenvolvendo uma série de projetos que destacam suas habilidades em análise de dados e desenvolvimento web. Sua paixão por música o levou a combinar suas habilidades técnicas com a música, criando projetos inovadores que mesclam tecnologia e arte.</p>
+            <p>Arthur começou sua jornada na tecnologia focando na automação de processos com Python, destacando-se em vários projetos que refletem suas habilidades em análise de dados e desenvolvimento web. Ele tem um profundo interesse por questões culturais, dedicando-se à pesquisa e leitura de livros que enriquecem seu conhecimento e inspiração.</p>
             
-            <p>Ele é também o criador do projeto 'CineTop', um sistema de recomendação de filmes, e está constantemente buscando novas maneiras de melhorar suas habilidades e contribuir para a comunidade de desenvolvedores.</p>
+            <p>Como criador do projeto 'CineTop', um inovador sistema de recomendação de filmes, Arthur demonstra sua capacidade de integrar tecnologia e entretenimento. Ele continua a explorar novas maneiras de aprimorar suas competências e contribuir significativamente para a comunidade de desenvolvedores.</p>
             
-            <p>Entre suas conquistas recentes, Arthur configurou um aplicativo de análise de preços de casas utilizando o dataset 'Ames Housing Dataset' do Kaggle.</p>
+            <p>Arthur também desenvolveu um aplicativo de análise de preços de casas usando o prestigiado 'Ames Housing Dataset' do Kaggle. Este projeto de machine learning foi projetado para prever os preços de venda de casas em Ames, Iowa, com base em uma variedade de características. Utilizando técnicas de aprendizado de máquina, Arthur construiu e otimizou modelos para melhorar a precisão das previsões. Este projeto exemplifica sua capacidade de aplicar conceitos avançados de machine learning a problemas do mundo real, proporcionando insights valiosos para o mercado imobiliário.</p>
         </div>
 
         <div class="section">
-            <h2>Missão</h2>
-            <p>Nossa missão é proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados.</p>
+            <h2>Missão da FinanVision</h2>
+            <p>Proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados.</p>
         </div>
 
         <div class="section">
-            <h2>Valores</h2>
+            <h2>Nossos Valores</h2>
             <ul>
                 <li><strong>Inovação:</strong> Buscamos constantemente novas tecnologias e métodos para melhorar nossos serviços.</li>
                 <li><strong>Precisão:</strong> Garantimos que todas as informações fornecidas são precisas e atualizadas.</li>
@@ -181,7 +188,7 @@
         </div>
 
         <div class="section">
-            <h2>Contato</h2>
+            <h2>Entre em Contato</h2>
             <p>Para mais informações, entre em contato conosco através do e-mail: <a href="mailto:arthuraraujo07@hotmail.com">arthuraraujo07@hotmail.com</a>.</p>
         </div>
     </div>
