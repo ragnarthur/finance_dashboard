@@ -5,6 +5,7 @@
     <title>Sobre | FinanVision</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -76,7 +77,7 @@
             margin: 20px auto;
             border-radius: 9px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 85%;
+            max-width: 80%;
         }
 
         .section {
@@ -100,11 +101,17 @@
         .section h2 {
             margin-top: 0;
             color: #4ca1af;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .section h2:hover {
+            transform: scale(1.1);
         }
 
         .section p {
             color: #fff;
             line-height: 1.6;
+            font-size: 18px;
         }
 
         .section ul {
@@ -118,12 +125,8 @@
             padding: 10px;
             border-radius: 5px;
             color: #fff;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .section li:hover {
-            background-color: #34495e;
-            transform: translateX(10px);
+            font-size: 18px;
+            transition: transform 0.3s ease-in-out;
         }
 
         .section a {
@@ -134,6 +137,16 @@
 
         .section a:hover {
             text-decoration: underline;
+        }
+
+        .section li:hover {
+            background: #34495e;
+            transform: translateX(10px);
+        }
+
+        /* Custom animation for the values section */
+        .animate__animated.animate__fadeInUp {
+            --animate-duration: 1.5s;
         }
     </style>
 </head>
@@ -152,33 +165,30 @@
     </nav>
 
     <div class="dashboard" id="about">
-        <h1>Conheça o FinanVision</h1>
+        <h1>FinanVision</h1>
 
         <div class="section">
             <h2>Nossa Plataforma</h2>
-            <p>O FinanVision é uma plataforma inovadora projetada para oferecer uma visão abrangente das principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, nossa ferramenta mantém as informações sempre atualizadas, permitindo que investidores tomem decisões embasadas e seguras. Nossa missão é democratizar o acesso a dados financeiros precisos e análises detalhadas, capacitando tanto investidores iniciantes quanto experientes a gerenciar seus portfólios com confiança.</p>
-            <p>A FinanVision não apenas monitora os preços de fechamento e volumes de negociação, mas também analisa tendências e padrões no mercado, fornecendo insights valiosos que podem orientar estratégias de investimento. Além disso, nossa plataforma é intuitiva e fácil de usar, garantindo que todos os usuários, independentemente de sua experiência técnica, possam acessar e interpretar dados financeiros complexos com facilidade.</p>
+            <p>O FinanVision é uma plataforma inovadora desenvolvida para fornecer uma visão abrangente e atualizada sobre as principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, nossa ferramenta auxilia investidores a tomar decisões informadas com base em informações precisas e relevantes.</p>
+            <p>Recentemente, implementamos um novo recurso de notícias que integra as últimas manchetes e artigos diretamente em nosso dashboard. Essa funcionalidade garante que os usuários estejam sempre atualizados com as tendências e eventos mais recentes do mercado financeiro, tanto para ações quanto para criptomoedas.</p>
         </div>
 
         <div class="section">
-            <h2>Nosso Desenvolvedor Principal</h2>
+            <h2>Equipe FinanVision</h2>
             <img src="{{ url_for('static', filename='images/arthur.jpg') }}" alt="Foto de Arthur Araújo" class="profile-image">
-            <p><strong>Arthur Araújo</strong> é um talentoso desenvolvedor e analista de dados, conhecido por sua expertise em programação, machine learning e desenvolvimento web. Com uma paixão pelo ensino, Arthur também atua como professor de música nas Casas da Família, onde lidera projetos de coral e oferece aulas de teclado, piano, guitarra, violão e bateria.</p>
-            
-            <p>Arthur começou sua jornada na tecnologia focando na automação de processos com Python, destacando-se em vários projetos que refletem suas habilidades em análise de dados e desenvolvimento web. Ele tem um profundo interesse por questões culturais, dedicando-se à pesquisa e leitura de livros que enriquecem seu conhecimento e inspiração.</p>
-            
-            <p>Como criador do projeto 'CineTop', um inovador sistema de recomendação de filmes, Arthur demonstra sua capacidade de integrar tecnologia e entretenimento. Ele continua a explorar novas maneiras de aprimorar suas competências e contribuir significativamente para a comunidade de desenvolvedores.</p>
-            
-            <p>Arthur também desenvolveu um aplicativo de análise de preços de casas usando o prestigiado 'Ames Housing Dataset' do Kaggle. Este projeto de machine learning foi projetado para prever os preços de venda de casas em Ames, Iowa, com base em uma variedade de características. Utilizando técnicas de aprendizado de máquina, Arthur construiu e otimizou modelos para melhorar a precisão das previsões. Este projeto exemplifica sua capacidade de aplicar conceitos avançados de machine learning a problemas do mundo real, proporcionando insights valiosos para o mercado imobiliário.</p>
+            <p><strong>Arthur Araújo</strong> é um desenvolvedor e analista de dados altamente qualificado com uma sólida formação em programação, machine learning e desenvolvimento web. Sua experiência técnica abrange diversas áreas, incluindo automação de processos, análise de dados e criação de aplicativos web. Arthur é um profissional versátil, que combina habilidades técnicas avançadas com uma paixão por inovação e aprendizado contínuo.</p>
+            <p>Atualmente, Arthur é responsável pelo desenvolvimento e manutenção do FinanVision, onde aplica suas competências para garantir que a plataforma ofereça dados precisos e atualizados aos seus usuários. Ele possui um profundo conhecimento em Python e é proficiente em diversas bibliotecas e frameworks, como Flask, Django e Pandas, o que lhe permite criar soluções robustas e escaláveis.</p>
+            <p>Além de seu trabalho como desenvolvedor, Arthur é também professor de música, atuando nas Casas da Família. Ele ministra aulas de teclado, piano, guitarra, violão e bateria, e é responsável por projetos de coral. Sua capacidade de ensinar e inspirar os alunos é um reflexo de sua dedicação e paixão pela música.</p>
+            <p>Arthur é o criador do projeto 'CineTop', um sistema de recomendação de filmes, que demonstra sua habilidade em aplicar técnicas de machine learning para resolver problemas práticos. Ele também desenvolveu um aplicativo de análise de preços de casas utilizando o 'Ames Housing Dataset' do Kaggle, onde aplicou modelos preditivos para fornecer insights valiosos sobre o mercado imobiliário.</p>
         </div>
 
-        <div class="section">
-            <h2>Missão da FinanVision</h2>
-            <p>Proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados.</p>
+        <div class="section animate__animated animate__fadeInUp">
+            <h2>Missão</h2>
+            <p>Nossa missão é proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados. Com a nova funcionalidade de notícias, reforçamos nosso compromisso em fornecer informações de alta qualidade e em tempo real.</p>
         </div>
 
-        <div class="section">
-            <h2>Nossos Valores</h2>
+        <div class="section animate__animated animate__fadeInUp">
+            <h2>Valores</h2>
             <ul>
                 <li><strong>Inovação:</strong> Buscamos constantemente novas tecnologias e métodos para melhorar nossos serviços.</li>
                 <li><strong>Precisão:</strong> Garantimos que todas as informações fornecidas são precisas e atualizadas.</li>
@@ -188,7 +198,7 @@
         </div>
 
         <div class="section">
-            <h2>Entre em Contato</h2>
+            <h2>Contato</h2>
             <p>Para mais informações, entre em contato conosco através do e-mail: <a href="mailto:arthuraraujo07@hotmail.com">arthuraraujo07@hotmail.com</a>.</p>
         </div>
     </div>

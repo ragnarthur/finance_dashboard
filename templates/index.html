@@ -91,6 +91,17 @@
                     </div>
                 </div>
             </div>
+            <div class="news-section">
+                <h2>Notícias Recentes</h2>
+                <ul class="news-list">
+                    {% for article in news_articles[:5] %}
+                    <li class="news-item">
+                        <a href="{{ article['url'] }}" target="_blank">{{ article['title'] }}</a>
+                        <p>{{ article['description'] }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
     <script>
