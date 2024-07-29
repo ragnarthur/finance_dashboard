@@ -1,302 +1,343 @@
+/* Estilo global para o corpo */
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('../static/images/background.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    color: #fff;
+    font-family: 'Roboto', sans-serif; /* Fonte padrão */
+    margin: 0; /* Remover margem */
+    padding: 0; /* Remover preenchimento */
+    background-image: url('../static/images/background.jpg'); /* Imagem de fundo */
+    background-size: cover; /* Cobrir toda a área */
+    background-attachment: fixed; /* Fixo na tela */
+    background-repeat: no-repeat; /* Sem repetição */
+    color: #fff; /* Cor do texto branco */
 }
 
+/* Estilo para a barra de navegação */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to right, #2c3e50, #4ca1af);
-    padding: 10px 20px;
-    color: #fff;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    opacity: 0.9;
+    display: flex; /* Layout flexível */
+    justify-content: space-between; /* Espaçar itens */
+    align-items: center; /* Alinhar itens ao centro */
+    background: linear-gradient(to right, #2c3e50, #4ca1af); /* Gradiente de fundo */
+    padding: 10px 20px; /* Espaçamento interno */
+    color: #fff; /* Cor do texto branco */
+    position: fixed; /* Fixo no topo */
+    width: 100%; /* Largura total */
+    top: 0; /* Posição no topo */
+    z-index: 1000; /* Camada superior */
+    opacity: 0.9; /* Opacidade */
 }
 
+/* Estilo para links na barra de navegação */
 .navbar a {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 20px;
-    transition: background-color 0.3s;
+    color: #fff; /* Cor do texto branco */
+    text-decoration: none; /* Sem sublinhado */
+    padding: 8px 20px; /* Espaçamento interno */
+    transition: background-color 0.3s; /* Transição suave */
 }
 
+/* Estilo ao passar o mouse sobre os links da barra de navegação */
 .navbar a:hover {
-    background-color: #34495e;
+    background-color: #34495e; /* Cor de fundo ao passar o mouse */
 }
 
+/* Estilo para a marca da barra de navegação */
 .navbar-brand {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: bold;
+    display: flex; /* Layout flexível */
+    align-items: center; /* Alinhar itens ao centro */
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
 }
 
+/* Estilo para o logo na barra de navegação */
 .navbar-brand .logo {
-    height: 50px;
-    margin-right: 10px;
+    height: 50px; /* Altura do logo */
+    margin-right: 10px; /* Margem à direita */
 }
 
+/* Estilo para os links na barra de navegação */
 .navbar-links {
-    display: flex;
-    gap: 10px;
-    margin-right: 20px;
+    display: flex; /* Layout flexível */
+    gap: 10px; /* Espaçamento entre itens */
+    margin-right: 20px; /* Margem à direita */
 }
 
+/* Estilo para o título principal */
 h1 {
-    text-align: center;
-    color: #fff;
-    margin-top: 80px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    text-align: center; /* Alinhar ao centro */
+    color: #fff; /* Cor do texto branco */
+    margin-top: 80px; /* Margem superior */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Sombra do texto */
 }
 
+/* Estilo para o dashboard */
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px;
-    background-color: rgba(0, 0, 0, 0.8);
-    margin: 20px;
-    border-radius: 9px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 90%;
+    display: flex; /* Layout flexível */
+    flex-direction: column; /* Coluna */
+    align-items: center; /* Alinhar ao centro */
+    padding: 50px; /* Espaçamento interno */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    margin: 20px; /* Margem */
+    border-radius: 9px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    max-width: 90%; /* Largura máxima */
 }
 
+/* Estilo para os controles */
 .controls {
-    margin-bottom: 20px;
-    text-align: center;
+    margin-bottom: 20px; /* Margem inferior */
+    text-align: center; /* Alinhar ao centro */
 }
 
+/* Estilo para o rótulo dos controles */
 .controls label {
-    font-size: 18px;
-    margin-right: 10px;
+    font-size: 18px; /* Tamanho da fonte */
+    margin-right: 10px; /* Margem à direita */
 }
 
+/* Estilo para o seletor customizado */
 .custom-select {
-    width: 300px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 300px; /* Largura */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #fff; /* Cor de fundo */
+    color: #000; /* Cor do texto */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transições suaves */
 }
 
+/* Estilo ao focar no seletor customizado */
 .custom-select:focus {
-    border-color: #2196F3;
-    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
-    outline: none;
+    border-color: #2196F3; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); /* Sombra ao focar */
+    outline: none; /* Sem contorno */
 }
 
+/* Estilo para a seção de ações e criptomoedas */
 .top-stocks, .top-cryptos {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Largura total */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    padding: 20px; /* Espaçamento interno */
+    margin-top: 20px; /* Margem superior */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
+/* Estilo para o título das seções de ações e criptomoedas */
 .top-stocks h2, .top-cryptos h2 {
-    text-align: center;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    text-align: center; /* Alinhar ao centro */
+    color: #fff; /* Cor do texto branco */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Sombra do texto */
 }
 
+/* Estilo para as tabelas de ações e criptomoedas */
 .top-stocks table, .top-cryptos table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Largura total */
+    border-collapse: collapse; /* Colapsar bordas */
+    margin-top: 20px; /* Margem superior */
+    color: #fff; /* Cor do texto branco */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
+/* Estilo para cabeçalhos e células das tabelas */
 .top-stocks th, .top-cryptos th, .top-stocks td, .top-cryptos td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #ddd; /* Borda */
+    padding: 8px; /* Espaçamento interno */
+    text-align: center; /* Alinhar ao centro */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
 }
 
+/* Estilo específico para cabeçalhos das tabelas */
 .top-stocks th, .top-cryptos th {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    color: #fff; /* Cor do texto branco */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Sombra do texto */
 }
 
+/* Estilo para linhas das tabelas */
 .top-stocks tr, .top-cryptos tr {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
+/* Estilo ao passar o mouse sobre as linhas das tabelas */
 .top-stocks tr:hover, .top-cryptos tr:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: rgba(33, 150, 243, 0.2);
+    transform: scale(1.02); /* Aumentar escala */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    background-color: rgba(33, 150, 243, 0.2); /* Fundo ao passar o mouse */
 }
 
+/* Estilo para o container dos gráficos */
 #chart-container {
-    width: 100%;
-    margin-bottom: 20px;
+    width: 100%; /* Largura total */
+    margin-bottom: 20px; /* Margem inferior */
 }
 
+/* Estilo para os gráficos */
 .chart {
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    width: 100%; /* Largura total */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-bottom: 20px; /* Margem inferior */
 }
 
+/* Estilo para a linha de gráficos */
 .charts-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    display: flex; /* Layout flexível */
+    justify-content: space-between; /* Espaçar itens */
+    width: 100%; /* Largura total */
 }
 
+/* Estilo para os gráficos dentro da linha */
 .charts-row .chart {
-    width: 48%;
+    width: 48%; /* Largura de 48% */
 }
 
+/* Estilo para dispositivos móveis */
 @media (max-width: 768px) {
     .navbar-brand {
-        font-size: 20px;
+        font-size: 20px; /* Tamanho da fonte reduzido */
     }
 
     .navbar-brand .logo {
-        height: 40px;
+        height: 40px; /* Altura do logo reduzida */
     }
 
     .charts-row .chart {
-        width: 100%;
+        width: 100%; /* Largura total */
     }
 
     .custom-select {
-        width: 100%;
+        width: 100%; /* Largura total */
     }
 }
 
+/* Estilo para as notas */
 .notes {
-    margin-top: 20px;
-    width: 100%;
+    margin-top: 20px; /* Margem superior */
+    width: 100%; /* Largura total */
 }
 
+/* Estilo para cada nota */
 .note {
-    background-color: rgba(0, 0, 0, 0.8);
-    border-left: 6px solid #2196F3;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.6s ease, box-shadow 0.6s ease, max-height 0.6s ease, width 0.6s ease, background-color 0.6s ease;
-    overflow: hidden;
-    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    border-left: 6px solid #2196F3; /* Borda esquerda */
+    padding: 10px; /* Espaçamento interno */
+    margin-bottom: 10px; /* Margem inferior */
+    border-radius: 5px; /* Bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    transition: transform 0.6s ease, box-shadow 0.6s ease, max-height 0.6s ease, width 0.6s ease, background-color 0.6s ease; /* Transições suaves */
+    overflow: hidden; /* Ocultar estouro */
+    max-width: 100%; /* Largura máxima */
 }
 
+/* Estilo ao passar o mouse sobre as notas */
 .note:hover {
-    transform: translateX(10px) scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-height: 300px;
-    width: 95%;
-    background-color: #2196F3;
-    color: #fff;
+    transform: translateX(10px) scale(1.05); /* Translação e escala */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    max-height: 300px; /* Altura máxima */
+    width: 95%; /* Largura */
+    background-color: #2196F3; /* Fundo */
+    color: #fff; /* Cor do texto */
 }
 
+/* Estilo para o título das notas */
 .note-title {
-    font-weight: bold;
-    color: #2196F3;
+    font-weight: bold; /* Negrito */
+    color: #2196F3; /* Cor do texto */
 }
 
+/* Estilo ao passar o mouse sobre o título das notas */
 .note:hover .note-title {
-    color: #fff;
+    color: #fff; /* Cor do texto branco */
 }
 
+/* Estilo para o texto das notas */
 .note p {
-    margin: 0;
-    font-size: 14px;
-    color: #fff;
+    margin: 0; /* Sem margem */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #fff; /* Cor do texto branco */
 }
 
+/* Estilo ao passar o mouse sobre o texto das notas */
 .note:hover p {
-    color: #fff;
+    color: #fff; /* Cor do texto branco */
 }
 
 /* Estilo para a animação de carregamento */
 .loading {
-    display: none;
-    margin-top: 10px;
-    text-align: center;
+    display: none; /* Não exibir */
+    margin-top: 10px; /* Margem superior */
+    text-align: center; /* Alinhar ao centro */
 }
 
+/* Estilo para o spinner de carregamento */
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-left-color: #fff;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Borda */
+    border-left-color: #fff; /* Cor da borda esquerda */
+    border-radius: 50%; /* Bordas arredondadas */
+    width: 30px; /* Largura */
+    height: 30px; /* Altura */
+    animation: spin 1s linear infinite; /* Animação */
+    margin: 0 auto; /* Margem automática */
 }
 
+/* Animação de rotação */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); } /* Início */
+    100% { transform: rotate(360deg); } /* Fim */
 }
 
+/* Estilo para o texto de carregamento */
 .loading p {
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 5px;
+    color: #fff; /* Cor do texto branco */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    margin-top: 5px; /* Margem superior */
 }
 
+/* Estilo para a seção de notícias */
 .news-section {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Margem superior */
+    padding: 20px; /* Espaçamento interno */
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
+/* Estilo para a lista de notícias */
 .news-list {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: none; /* Sem marcadores */
+    padding: 0; /* Sem preenchimento */
 }
 
+/* Estilo para cada item de notícia */
 .news-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px; /* Margem inferior */
+    padding: 10px; /* Espaçamento interno */
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves */
 }
 
+/* Estilo para os links de notícia */
 .news-item a {
-    color: #4ca1af;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
+    color: #4ca1af; /* Cor do texto */
+    text-decoration: none; /* Sem sublinhado */
+    font-weight: bold; /* Negrito */
+    display: block; /* Bloco */
+    margin-bottom: 5px; /* Margem inferior */
 }
 
+/* Estilo para o texto de descrição da notícia */
 .news-item p {
-    color: #fff;
-    margin: 0;
+    color: #fff; /* Cor do texto branco */
+    margin: 0; /* Sem margem */
 }
 
+/* Estilo ao passar o mouse sobre os itens de notícia */
 .news-item:hover {
-    transform: translateX(10px) scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: rgba(33, 150, 243, 0.2);
+    transform: translateX(10px) scale(1.05); /* Translação e escala */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    background-color: rgba(33, 150, 243, 0.2); /* Fundo */
 }

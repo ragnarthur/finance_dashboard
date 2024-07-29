@@ -3,12 +3,15 @@
 
 <head>
     <title>FinanVision</title>
+    <!-- Importação das fontes e estilos -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Importação do jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+    <!-- Navbar com links de navegação -->
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="{{ url_for('static', filename='images/logo/logo.jpg') }}" alt="FinanVision Logo" class="logo">
@@ -23,6 +26,7 @@
     <div class="container">
         <h1>FinanVision Dashboard</h1>
         <div class="dashboard">
+            <!-- Controle de seleção de ações -->
             <div class="controls">
                 <label for="symbol-select">Selecione uma ação:</label>
                 <select id="symbol-select" class="custom-select">
@@ -37,22 +41,28 @@
                 </div>
             </div>
             <div id="chart-container">
+                <!-- Contêineres para os gráficos -->
                 <div class="chart" id="chart-price">
-                    <!-- Gráfico será atualizado aqui -->
+                    <!-- Gráfico de preço será atualizado aqui -->
                 </div>
                 <div class="chart" id="chart-volume">
+                    <!-- Gráfico de volume será atualizado aqui -->
                 </div>
                 <div class="chart" id="chart-open-close">
+                    <!-- Gráfico de preço de abertura e fechamento será atualizado aqui -->
                 </div>
                 <div class="charts-row">
                     <div class="chart" id="chart-pie">
+                        <!-- Gráfico de pizza será atualizado aqui -->
                     </div>
                     <div class="chart" id="chart-bar">
+                        <!-- Gráfico de barras será atualizado aqui -->
                     </div>
                 </div>
             </div>
             <div class="top-stocks" id="top-stocks">
                 <h2>Top 10 Ações</h2>
+                <!-- Tabela para exibir as top 10 ações -->
                 <table class="table table-dark table-hover">
                     <thead>
                         <tr>
@@ -73,6 +83,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <!-- Notas explicativas sobre os dados exibidos -->
                 <div class="notes">
                     <div class="note">
                         <span class="note-title">Nota:</span> O volume representa o número total de ações negociadas durante
@@ -93,6 +104,7 @@
             </div>
             <div class="news-section">
                 <h2>Notícias Recentes</h2>
+                <!-- Lista de notícias recentes -->
                 <ul class="news-list">
                     {% for article in news_articles[:5] %}
                     <li class="news-item">
@@ -108,6 +120,7 @@
         $(document).ready(function () {
             $('#loading').hide();
 
+            // Remove a opção padrão quando o campo é focado
             $('#symbol-select').focus(function () {
                 $(this).find('option[value=""]').remove();
             }).blur(function () {
@@ -116,6 +129,7 @@
                 }
             });
 
+            // Atualiza os gráficos quando uma ação é selecionada
             $('#symbol-select').change(function () {
                 var selectedSymbol = $(this).val();
                 if (selectedSymbol) {
@@ -131,6 +145,7 @@
                 }
             });
 
+            // Funções para atualizar os gráficos periodicamente
             function updatePieChart() {
                 $.get('/update_pie_chart', function (data) {
                     $('#chart-pie').html(data.graph_html_pie);
@@ -143,6 +158,7 @@
                 });
             }
 
+            // Atualiza os gráficos a cada 10 minutos
             setInterval(updatePieChart, 600000);  // Atualiza a cada 10 minutos
             setInterval(updateBarChart, 600000);  // Atualiza a cada 10 minutos
             updatePieChart();  // Atualiza na primeira carga

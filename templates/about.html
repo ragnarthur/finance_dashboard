@@ -3,10 +3,14 @@
 
 <head>
     <title>Sobre | FinanVision</title>
+    <!-- Importação das fontes e estilos -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Importação do estilo CSS customizado -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Importação da biblioteca animate.css para animações -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
+        /* Estilo global do corpo */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -18,6 +22,7 @@
             color: #fff;
         }
 
+        /* Estilo da barra de navegação */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -61,6 +66,7 @@
             margin-right: 20px;
         }
 
+        /* Estilo do título principal */
         h1 {
             text-align: center;
             color: #fff;
@@ -68,6 +74,7 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
 
+        /* Estilo do container principal */
         .dashboard {
             display: flex;
             flex-direction: column;
@@ -80,6 +87,7 @@
             max-width: 80%;
         }
 
+        /* Estilo das seções */
         .section {
             padding: 30px;
             background-color: rgba(255, 255, 255, 0.1);
@@ -144,7 +152,7 @@
             transform: translateX(10px);
         }
 
-        /* Custom animation for the values section */
+        /* Animação customizada para a seção de valores */
         .animate__animated.animate__fadeInUp {
             --animate-duration: 1.5s;
         }
@@ -152,6 +160,7 @@
 </head>
 
 <body>
+    <!-- Barra de navegação -->
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="{{ url_for('static', filename='images/logo/logo.jpg') }}" alt="FinanVision Logo" class="logo">
@@ -164,15 +173,18 @@
         </div>
     </nav>
 
+    <!-- Container principal -->
     <div class="dashboard" id="about">
         <h1>FinanVision</h1>
 
+        <!-- Seção sobre a plataforma -->
         <div class="section">
             <h2>Nossa Plataforma</h2>
             <p>O FinanVision é uma plataforma inovadora desenvolvida para fornecer uma visão abrangente e atualizada sobre as principais ações e criptomoedas do mercado financeiro. Utilizando dados em tempo real, nossa ferramenta auxilia investidores a tomar decisões informadas com base em informações precisas e relevantes.</p>
             <p>Recentemente, implementamos um novo recurso de notícias que integra as últimas manchetes e artigos diretamente em nosso dashboard. Essa funcionalidade garante que os usuários estejam sempre atualizados com as tendências e eventos mais recentes do mercado financeiro, tanto para ações quanto para criptomoedas.</p>
         </div>
 
+        <!-- Seção sobre a equipe -->
         <div class="section">
             <h2>Equipe FinanVision</h2>
             <img src="{{ url_for('static', filename='images/arthur.jpg') }}" alt="Foto de Arthur Araújo" class="profile-image">
@@ -182,11 +194,13 @@
             <p>Arthur é o criador do projeto 'CineTop', um sistema de recomendação de filmes, que demonstra sua habilidade em aplicar técnicas de machine learning para resolver problemas práticos. Ele também desenvolveu um aplicativo de análise de preços de casas utilizando o 'Ames Housing Dataset' do Kaggle, onde aplicou modelos preditivos para fornecer insights valiosos sobre o mercado imobiliário.</p>
         </div>
 
+        <!-- Seção sobre a missão -->
         <div class="section animate__animated animate__fadeInUp">
             <h2>Missão</h2>
             <p>Nossa missão é proporcionar uma ferramenta robusta e intuitiva para análise financeira, auxiliando investidores e entusiastas do mercado a tomar decisões informadas baseadas em dados precisos e atualizados. Com a nova funcionalidade de notícias, reforçamos nosso compromisso em fornecer informações de alta qualidade e em tempo real.</p>
         </div>
 
+        <!-- Seção sobre os valores -->
         <div class="section animate__animated animate__fadeInUp">
             <h2>Valores</h2>
             <ul>
@@ -197,6 +211,7 @@
             </ul>
         </div>
 
+        <!-- Seção de contato -->
         <div class="section">
             <h2>Contato</h2>
             <p>Para mais informações, entre em contato conosco através do e-mail: <a href="mailto:arthuraraujo07@hotmail.com">arthuraraujo07@hotmail.com</a>.</p>

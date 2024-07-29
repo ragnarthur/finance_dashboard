@@ -2,14 +2,20 @@
 <html>
 <head>
     <title>FinanVision</title>
+    <!-- Importação das fontes e estilos -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Importação do Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Importação do estilo CSS customizado -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Importação do jQuery e Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <!-- Cabeçalho da página de erro -->
     <h1>Ocorreu um erro</h1>
+    <!-- Mensagem de erro dinâmica -->
     <p>{{ message }}</p>
 </body>
 </html>
