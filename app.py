@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, jsonify
 from utils.data_fetcher import (
     get_processed_stock_data, create_stock_chart, 
@@ -15,21 +16,29 @@ import pandas as pd
 import logging
 from datetime import datetime, timedelta
 import urllib.parse
+from dotenv import load_dotenv
 
-# Configurar logging
+# Carregar variáveis de ambiente do arquivo .env
+load_dotenv()
+
+# Configurar logging para exibir mensagens de depuração
 logging.basicConfig(level=logging.DEBUG)
 
+# Inicializa o aplicativo Flask
 app = Flask(__name__)
-NEWS_API_KEY = '6068bb4a398b4076b54c1a53d024affd'  # API key fornecida
 
-# Cache para notícias
+# Obter a API key das variáveis de ambiente
+NEWS_API_KEY = os.getenv('NEWS_API_KEY')
+
+# Cache para armazenar notícias e evitar consultas repetidas
 news_cache = {
     'ações financeiras': {'data': None, 'timestamp': None},
     'criptomoedas': {'data': None, 'timestamp': None}
 }
-CACHE_EXPIRY = timedelta(minutes=30)  # Defina o tempo de expiração do cache
+CACHE_EXPIRY = timedelta(minutes=30)  # Definir o tempo de expiração do cache
 
 def get_cached_news(query):
+    """Obtém notícias do cache ou faz uma nova solicitação se o cache estiver expirado."""
     current_time = datetime.now()
     cache_key = urllib.parse.quote(query)
     cache = news_cache.get(cache_key, {'data': None, 'timestamp': None})
@@ -48,8 +57,9 @@ def get_cached_news(query):
 
 @app.route('/')
 def index():
+    """Rota principal que exibe o dashboard com gráficos e notícias financeiras."""
     try:
-        top_stocks = get_top_10_stocks()
+        top_stocks = get_top_10_stocks()  # Obter as 10 principais ações
         charts = []
         for stock in top_stocks:
             symbol = stock[0]
@@ -57,7 +67,7 @@ def index():
             fig = create_stock_chart(df, symbol)
             charts.append(fig.to_html(full_html=False))
         symbols = get_all_symbols()
-        news_articles = get_cached_news('ações financeiras')
+        news_articles = get_cached_news('ações financeiras')  # Obter notícias financeiras
         return render_template('index.html', charts=charts, top_stocks=top_stocks, symbols=symbols, company_names=company_names, news_articles=news_articles)
     except Exception as e:
         logging.error(f"Erro ao carregar a página inicial: {e}")
@@ -65,10 +75,12 @@ def index():
 
 @app.route('/about')
 def about():
+    """Rota que exibe a página sobre o projeto."""
     return render_template('about.html')
 
 @app.route('/update_chart', methods=['POST'])
 def update_chart():
+    """Rota que atualiza os gráficos com base na ação selecionada."""
     symbol = request.form['symbol']
     try:
         df = get_processed_stock_data(symbol)
@@ -89,6 +101,7 @@ def update_chart():
 
 @app.route('/update_pie_chart')
 def update_pie_chart():
+    """Rota que atualiza o gráfico de pizza com as ações principais."""
     try:
         top_stocks = get_top_10_stocks()
         names = [company_names[stock[0]] for stock in top_stocks]
@@ -105,6 +118,7 @@ def update_pie_chart():
 
 @app.route('/update_bar_chart')
 def update_bar_chart():
+    """Rota que atualiza o gráfico de barras com as variações percentuais das ações."""
     try:
         top_stocks = get_top_10_stocks()
         names = [company_names[stock[0]] for stock in top_stocks]
@@ -130,6 +144,7 @@ def update_bar_chart():
 
 @app.route('/update_crypto_chart', methods=['POST'])
 def update_crypto_chart():
+    """Rota que atualiza os gráficos de criptomoedas com base na criptomoeda selecionada."""
     crypto = request.form['crypto']
     try:
         data = get_crypto_data(crypto)
@@ -150,6 +165,7 @@ def update_crypto_chart():
 
 @app.route('/update_crypto_pie_chart')
 def update_crypto_pie_chart():
+    """Rota que atualiza o gráfico de pizza com as criptomoedas principais."""
     try:
         top_cryptos = get_top_10_cryptos()
         df_pie = pd.DataFrame(top_cryptos)
@@ -162,6 +178,7 @@ def update_crypto_pie_chart():
 
 @app.route('/update_crypto_bar_chart')
 def update_crypto_bar_chart():
+    """Rota que atualiza o gráfico de barras com os preços atuais das criptomoedas."""
     try:
         top_cryptos = get_top_10_cryptos()
         df_bar = pd.DataFrame({
@@ -177,6 +194,7 @@ def update_crypto_bar_chart():
 
 @app.route('/cryptos')
 def cryptos():
+    """Rota que exibe o dashboard de criptomoedas com gráficos e notícias."""
     try:
         top_cryptos = get_top_10_cryptos()
         graph_html_pie = create_crypto_pie_chart(pd.DataFrame(top_cryptos), 'total_volume', 'Distribuição de Volume das Top 10 Criptomoedas')
@@ -194,3 +212,4 @@ def cryptos():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
