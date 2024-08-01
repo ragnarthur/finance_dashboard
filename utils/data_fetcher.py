@@ -223,4 +223,4 @@ def get_all_symbols():
     Returns:
         list: Lista de símbolos das ações.
     """
-    return company_names.keys()
+    return list(company_names.keys())

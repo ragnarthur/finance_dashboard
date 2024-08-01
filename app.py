@@ -7,8 +7,9 @@ from utils.data_fetcher import (
 )
 from utils.crypto_data_fetcher import get_top_10_cryptos, get_crypto_data
 from utils.crypto_chart_generator import (
-    create_crypto_charts, create_crypto_pie_chart,
-    create_crypto_volume_chart, create_crypto_bar_chart
+    create_crypto_pie_chart, create_crypto_bar_chart,
+    create_crypto_scatter_chart, create_crypto_area_chart,
+    create_crypto_volume_chart
 )
 from utils.news_fetcher import get_financial_news
 import plotly.express as px
@@ -68,9 +69,61 @@ def index():
             charts.append(fig.to_html(full_html=False))
         symbols = get_all_symbols()
         news_articles = get_cached_news('ações financeiras')  # Obter notícias financeiras
-        return render_template('index.html', charts=charts, top_stocks=top_stocks, symbols=symbols, company_names=company_names, news_articles=news_articles)
+        # Obtendo gráficos de criptomoedas
+        top_cryptos = get_top_10_cryptos()
+        df_pie = pd.DataFrame(top_cryptos)
+        fig_pie = create_crypto_pie_chart(df_pie, 'total_volume', 'Distribuição de Volume das Top 10 Criptomoedas')
+        graph_html_pie = fig_pie.to_html(full_html=False)
+        
+        df_bar = pd.DataFrame({
+            'name': [crypto['name'] for crypto in top_cryptos],
+            'current_price': [crypto['current_price'] for crypto in top_cryptos]
+        })
+        fig_bar = create_crypto_bar_chart(df_bar, 'name', 'current_price', 'Preço Atual das Top 10 Criptomoedas')
+        graph_html_bar = fig_bar.to_html(full_html=False)
+        
+        df_scatter = pd.DataFrame(top_cryptos)
+        fig_scatter = create_crypto_scatter_chart(df_scatter, 'current_price', 'total_volume', 'Dispersão de Preço vs Volume das Top 10 Criptomoedas')
+        graph_html_scatter = fig_scatter.to_html(full_html=False)
+
+        df_area = pd.DataFrame(top_cryptos)
+        fig_area = create_crypto_area_chart(df_area, 'name', 'current_price', 'Área de Preço Atual das Top 10 Criptomoedas')
+        graph_html_area = fig_area.to_html(full_html=False)
+
+        return render_template('index.html', charts=charts, top_stocks=top_stocks, symbols=symbols, company_names=company_names, news_articles=news_articles, graph_html_pie=graph_html_pie, graph_html_bar=graph_html_bar, graph_html_scatter=graph_html_scatter, graph_html_area=graph_html_area)
     except Exception as e:
         logging.error(f"Erro ao carregar a página inicial: {e}")
+        return render_template('error.html', message=str(e))
+
+@app.route('/cryptos')
+def cryptos():
+    """Rota que exibe o dashboard de criptomoedas."""
+    try:
+        top_cryptos = get_top_10_cryptos()
+        df_pie = pd.DataFrame(top_cryptos)
+        fig_pie = create_crypto_pie_chart(df_pie, 'total_volume', 'Distribuição de Volume das Top 10 Criptomoedas')
+        graph_html_pie = fig_pie.to_html(full_html=False)
+        
+        df_bar = pd.DataFrame({
+            'name': [crypto['name'] for crypto in top_cryptos],
+            'current_price': [crypto['current_price'] for crypto in top_cryptos]
+        })
+        fig_bar = create_crypto_bar_chart(df_bar, 'name', 'current_price', 'Preço Atual das Top 10 Criptomoedas')
+        graph_html_bar = fig_bar.to_html(full_html=False)
+        
+        df_scatter = pd.DataFrame(top_cryptos)
+        fig_scatter = create_crypto_scatter_chart(df_scatter, 'current_price', 'total_volume', 'Dispersão de Preço vs Volume das Top 10 Criptomoedas')
+        graph_html_scatter = fig_scatter.to_html(full_html=False)
+
+        df_area = pd.DataFrame(top_cryptos)
+        fig_area = create_crypto_area_chart(df_area, 'name', 'current_price', 'Área de Preço Atual das Top 10 Criptomoedas')
+        graph_html_area = fig_area.to_html(full_html=False)
+
+        news_articles = get_cached_news('criptomoedas')  # Obter notícias de criptomoedas
+
+        return render_template('cryptos.html', top_cryptos=top_cryptos, news_articles=news_articles, graph_html_pie=graph_html_pie, graph_html_bar=graph_html_bar, graph_html_scatter=graph_html_scatter, graph_html_area=graph_html_area)
+    except Exception as e:
+        logging.error(f"Erro ao carregar a página de criptomoedas: {e}")
         return render_template('error.html', message=str(e))
 
 @app.route('/about')
@@ -142,6 +195,32 @@ def update_bar_chart():
         logging.error(f"Erro ao atualizar o gráfico de barras: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/update_scatter_chart')
+def update_scatter_chart():
+    """Rota que atualiza o gráfico de dispersão."""
+    try:
+        top_stocks = get_top_10_stocks()
+        df_scatter = pd.DataFrame(top_stocks, columns=['symbol', 'name', 'price', 'volume', 'change'])
+        fig_scatter = create_crypto_scatter_chart(df_scatter, 'price', 'volume', 'Dispersão de Preço vs Volume das Top 10 Ações')
+        graph_html_scatter = fig_scatter.to_html(full_html=False)
+        return jsonify({'graph_html_scatter': graph_html_scatter})
+    except Exception as e:
+        logging.error(f"Erro ao atualizar o gráfico de dispersão: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/update_area_chart')
+def update_area_chart():
+    """Rota que atualiza o gráfico de área."""
+    try:
+        top_stocks = get_top_10_stocks()
+        df_area = pd.DataFrame(top_stocks, columns=['symbol', 'name', 'price', 'volume', 'change'])
+        fig_area = create_crypto_area_chart(df_area, 'price', 'change', 'Área de Preço vs Variação Percentual das Top 10 Ações')
+        graph_html_area = fig_area.to_html(full_html=False)
+        return jsonify({'graph_html_area': graph_html_area})
+    except Exception as e:
+        logging.error(f"Erro ao atualizar o gráfico de área: {e}")
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/update_crypto_chart', methods=['POST'])
 def update_crypto_chart():
     """Rota que atualiza os gráficos de criptomoedas com base na criptomoeda selecionada."""
@@ -149,7 +228,7 @@ def update_crypto_chart():
     try:
         data = get_crypto_data(crypto)
         df = pd.DataFrame(data)
-        fig_price = create_crypto_charts(df, 'price')
+        fig_price = create_crypto_volume_chart(df, 'price')
         fig_volume = create_crypto_volume_chart(df, 'volume')
         fig_price.update_layout(title="Preço ao longo do tempo")
         fig_volume.update_layout(title="Volume ao longo do tempo")
@@ -192,24 +271,31 @@ def update_crypto_bar_chart():
         logging.error(f"Erro ao atualizar o gráfico de barras: {e}")
         return jsonify({'error': str(e)}), 500
 
-@app.route('/cryptos')
-def cryptos():
-    """Rota que exibe o dashboard de criptomoedas com gráficos e notícias."""
+@app.route('/update_crypto_scatter_chart')
+def update_crypto_scatter_chart():
+    """Rota que atualiza o gráfico de dispersão para criptomoedas."""
     try:
         top_cryptos = get_top_10_cryptos()
-        graph_html_pie = create_crypto_pie_chart(pd.DataFrame(top_cryptos), 'total_volume', 'Distribuição de Volume das Top 10 Criptomoedas')
-        df_bar = pd.DataFrame({
-            'name': [crypto['name'] for crypto in top_cryptos],
-            'current_price': [crypto['current_price'] for crypto in top_cryptos]
-        })
-        fig_bar = create_crypto_bar_chart(df_bar, 'name', 'current_price', 'Preço Atual das Top 10 Criptomoedas')
-        graph_html_bar = fig_bar.to_html(full_html=False)
-        news_articles = get_cached_news('criptomoedas')
-        return render_template('cryptos.html', top_cryptos=top_cryptos, graph_html_pie=graph_html_pie, graph_html_bar=graph_html_bar, news_articles=news_articles)
+        df_scatter = pd.DataFrame(top_cryptos)
+        fig_scatter = create_crypto_scatter_chart(df_scatter, 'current_price', 'total_volume', 'Dispersão de Preço vs Volume das Top 10 Criptomoedas')
+        graph_html_scatter = fig_scatter.to_html(full_html=False)
+        return jsonify({'graph_html_scatter': graph_html_scatter})
     except Exception as e:
-        logging.error(f"Erro ao carregar a página de criptomoedas: {e}")
-        return render_template('error.html', message=str(e))
+        logging.error(f"Erro ao atualizar o gráfico de dispersão para criptomoedas: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/update_crypto_area_chart')
+def update_crypto_area_chart():
+    """Rota que atualiza o gráfico de área para criptomoedas."""
+    try:
+        top_cryptos = get_top_10_cryptos()
+        df_area = pd.DataFrame(top_cryptos)
+        fig_area = create_crypto_area_chart(df_area, 'name', 'current_price', 'Área de Preço Atual das Top 10 Criptomoedas')
+        graph_html_area = fig_area.to_html(full_html=False)
+        return jsonify({'graph_html_area': graph_html_area})
+    except Exception as e:
+        logging.error(f"Erro ao atualizar o gráfico de área para criptomoedas: {e}")
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
-

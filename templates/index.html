@@ -59,6 +59,19 @@
                         <!-- Gráfico de barras será atualizado aqui -->
                     </div>
                 </div>
+                <div class="charts-row">
+                    <div class="chart" id="chart-scatter">
+                        <!-- Gráfico de dispersão será atualizado aqui -->
+                    </div>
+                    <div class="chart" id="chart-area">
+                        <!-- Gráfico de área será atualizado aqui -->
+                    </div>
+                </div>
+                <div class="charts-row">
+                    <div class="chart" id="chart-radar">
+                        <!-- Gráfico de radar será atualizado aqui -->
+                    </div>
+                </div>
             </div>
             <div class="top-stocks" id="top-stocks">
                 <h2>Top 10 Ações</h2>
@@ -158,11 +171,35 @@
                 });
             }
 
+            function updateScatterChart() {
+                $.get('/update_scatter_chart', function (data) {
+                    $('#chart-scatter').html(data.graph_html_scatter);
+                });
+            }
+
+            function updateAreaChart() {
+                $.get('/update_area_chart', function (data) {
+                    $('#chart-area').html(data.graph_html_area);
+                });
+            }
+
+            function updateRadarChart() {
+                $.get('/update_radar_chart', function (data) {
+                    $('#chart-radar').html(data.graph_html_radar);
+                });
+            }
+
             // Atualiza os gráficos a cada 10 minutos
-            setInterval(updatePieChart, 600000);  // Atualiza a cada 10 minutos
-            setInterval(updateBarChart, 600000);  // Atualiza a cada 10 minutos
-            updatePieChart();  // Atualiza na primeira carga
-            updateBarChart();  // Atualiza na primeira carga
+            setInterval(updatePieChart, 600000);  
+            setInterval(updateBarChart, 600000);  
+            setInterval(updateScatterChart, 600000);
+            setInterval(updateAreaChart, 600000);
+            setInterval(updateRadarChart, 600000);
+            updatePieChart();  
+            updateBarChart();
+            updateScatterChart();
+            updateAreaChart();
+            updateRadarChart();
         });
     </script>
 </body>

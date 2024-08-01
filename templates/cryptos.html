@@ -49,8 +49,28 @@
                 </div>
                 <div class="charts-row">
                     <div class="chart" id="chart-pie">
+                        <!-- Gráfico de pizza será atualizado aqui -->
+                        {{ graph_html_pie | safe }}
                     </div>
                     <div class="chart" id="chart-bar">
+                        <!-- Gráfico de barras será atualizado aqui -->
+                        {{ graph_html_bar | safe }}
+                    </div>
+                </div>
+                <div class="charts-row">
+                    <div class="chart" id="chart-scatter">
+                        <!-- Gráfico de dispersão será atualizado aqui -->
+                        {{ graph_html_scatter | safe }}
+                    </div>
+                    <div class="chart" id="chart-area">
+                        <!-- Gráfico de área será atualizado aqui -->
+                        {{ graph_html_area | safe }}
+                    </div>
+                </div>
+                <div class="charts-row">
+                    <div class="chart" id="chart-radar">
+                        <!-- Gráfico de radar será atualizado aqui -->
+                        {{ graph_html_radar | safe }}
                     </div>
                 </div>
             </div>
@@ -146,11 +166,35 @@
                 });
             }
 
+            function updateScatterChart() {
+                $.get('/update_crypto_scatter_chart', function (data) {
+                    $('#chart-scatter').html(data.graph_html_scatter);
+                });
+            }
+
+            function updateAreaChart() {
+                $.get('/update_crypto_area_chart', function (data) {
+                    $('#chart-area').html(data.graph_html_area);
+                });
+            }
+
+            function updateRadarChart() {
+                $.get('/update_crypto_radar_chart', function (data) {
+                    $('#chart-radar').html(data.graph_html_radar);
+                });
+            }
+
             // Atualizar gráficos a cada 10 minutos
             setInterval(updatePieChart, 600000);  
             setInterval(updateBarChart, 600000);  
+            setInterval(updateScatterChart, 600000);
+            setInterval(updateAreaChart, 600000);
+            setInterval(updateRadarChart, 600000);
             updatePieChart();  
-            updateBarChart();  
+            updateBarChart();
+            updateScatterChart();
+            updateAreaChart();
+            updateRadarChart();
         });
     </script>
 </body>

@@ -1,4 +1,5 @@
 import plotly.express as px
+import plotly.graph_objects as go
 
 def create_crypto_pie_chart(df, value_column, title):
     """
@@ -108,5 +109,57 @@ def create_crypto_volume_chart(df, column_name):
         paper_bgcolor='rgba(0, 0, 0, 0.8)', 
         font_color='white', 
         title_font_color='white'
+    )
+    return fig
+
+def create_crypto_scatter_chart(df, x_column, y_column, title):
+    """
+    Cria um gráfico de dispersão para exibir a relação entre dois valores específicos.
+
+    Args:
+        df (DataFrame): DataFrame contendo os dados das criptomoedas.
+        x_column (str): Nome da coluna no DataFrame para o eixo x.
+        y_column (str): Nome da coluna no DataFrame para o eixo y.
+        title (str): Título do gráfico.
+
+    Returns:
+        Figure: Um objeto Plotly Figure contendo o gráfico de dispersão.
+    """
+    fig = px.scatter(df, x=x_column, y=y_column, title=title)
+    fig.update_layout(
+        plot_bgcolor='rgba(0, 0, 0, 0.8)', 
+        paper_bgcolor='rgba(0, 0, 0, 0.8)', 
+        font_color='white', 
+        title_font_color='white',
+        xaxis_title_font_color='white',
+        yaxis_title_font_color='white',
+        xaxis=dict(showgrid=False, zeroline=False),
+        yaxis=dict(showgrid=False, zeroline=False)
+    )
+    return fig
+
+def create_crypto_area_chart(df, x_column, y_column, title):
+    """
+    Cria um gráfico de área para exibir a variação de um valor específico ao longo do tempo.
+
+    Args:
+        df (DataFrame): DataFrame contendo os dados das criptomoedas.
+        x_column (str): Nome da coluna no DataFrame para o eixo x.
+        y_column (str): Nome da coluna no DataFrame para o eixo y.
+        title (str): Título do gráfico.
+
+    Returns:
+        Figure: Um objeto Plotly Figure contendo o gráfico de área.
+    """
+    fig = px.area(df, x=x_column, y=y_column, title=title)
+    fig.update_layout(
+        plot_bgcolor='rgba(0, 0, 0, 0.8)', 
+        paper_bgcolor='rgba(0, 0, 0, 0.8)', 
+        font_color='white', 
+        title_font_color='white',
+        xaxis_title_font_color='white',
+        yaxis_title_font_color='white',
+        xaxis=dict(showgrid=False, zeroline=False),
+        yaxis=dict(showgrid=False, zeroline=False)
     )
     return fig

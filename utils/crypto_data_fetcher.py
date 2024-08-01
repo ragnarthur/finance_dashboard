@@ -30,7 +30,7 @@ def get_top_10_cryptos():
         top_cryptos.append({
             'id': symbol,
             'symbol': symbol,
-            'name': data.info.get('name', symbol),  # Obter o nome da criptomoeda, ou usar o símbolo se não estiver disponível
+            'name': data.info.get('shortName', symbol),  # Usar 'shortName' para obter o nome da criptomoeda
             'current_price': current_price,
             'total_volume': volume,
             'opening_price': opening_price

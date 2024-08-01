@@ -285,7 +285,7 @@ h1 {
 /* Animação de rotação */
 @keyframes spin {
     0% { transform: rotate(0deg); } /* Início */
-    100% { transform: rotate(360deg); } /* Fim */
+     100% { transform: rotate(360deg); } /* Fim */
 }
 
 /* Estilo para o texto de carregamento */
